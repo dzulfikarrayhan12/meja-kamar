@@ -6,13 +6,59 @@
   <title>Checkout</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+  /* Default sudah pakai Tailwind, ini tambahan khusus responsif */
+  @media (max-width: 400px) {
+    section.bg-white.p-8 {
+      padding: 1rem; /* p-4 */
+    }
+
+    #pay-btn {
+      margin-left: 0 !important; /* override inline style */
+      width: 100% !important;
+    }
+
+    #checkout-list > div img {
+      width: 60px !important;
+      height: 60px !important;
+    }
+
+    #checkout-list > div {
+      gap: 1rem !important;
+      padding: 1rem !important;
+    }
+
+    .flex.justify-between.text-lg {
+      font-size: 1rem !important; /* text-base */
+    }
+  }
+
+  @keyframes slide-left {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+.animated-slide {
+  animation: slide-left 1.5s ease-in-out infinite;
+}
+</style>
+
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
 
   <!-- Header -->
-  <header class="bg-white p-4 shadow-md flex items-center justify-between">
-    <h1 class="text-xl font-bold">Checkout</h1>
-  </header>
+<header class="bg-white p-4 shadow-md flex items-center justify-between">
+  <h1 class="text-xl font-bold">Checkout</h1>
+
+<a href="index.html"
+   class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md shadow-md flex items-center gap-2">
+  <i class="ri-arrow-left-line text-xl animated-slide"></i>
+  <span>Kembali</span>
+</a>
+
+
+</header>
 
   <!-- List Produk -->
   <main class="flex-1 p-4 space-y-4" id="checkout-list">
@@ -20,24 +66,18 @@
   </main>
 
   <!-- Ringkasan dan Tombol Bayar -->
-  <section class="bg-white p-4 shadow-md rounded-t-xl">
-    <div class="flex justify-between text-lg font-semibold mb-4">
-      <span>Total</span>
-      <span id="total-price">Rp0</span>
-    </div>
-    <button id="pay-btn"
-  class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-md transition duration-300"
-  style="margin-left: 120px; width: calc(100% - 96px);">
-      Bayar Sekarang
-    </button>
-  </section>
+<section class="bg-white p-4 shadow-md rounded-t-xl">
+  <div class="flex justify-between text-lg font-semibold mb-8">
+    <span>Total</span>
+    <span id="total-price">Rp0</span>
+  </div>
+  <button id="pay-btn"
+    class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full mb-14">
+    Bayar Sekarang
+  </button>
+</section>
 
-  <!-- Tombol Kembali -->
-  <a href="index.html"
-     class="fixed bottom-7 left-1 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-full shadow-md flex items-center gap-2">
-    <i class="ri-arrow-left-line text-xl"></i>
-    <span>Kembali</span>
-  </a>
+
 
   <script>
     const cart = JSON.parse(localStorage.getItem('checkout')) || [];

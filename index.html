@@ -75,12 +75,12 @@ nav {
 <body class="bg-gray-100">
 
 <!-- Navbar -->
-<nav class="bg-black/69 backdrop-blur-sm text-white px-4 py-3 h-11 flex items-center justify-between sticky top-0 z-10">
+<nav class="bg-black/69 backdrop-blur-sm text-white px-4 py-3 h-14 flex items-center justify-between sticky top-0 z-10">
   <div class="flex-1">
 
   <!-- WhatsApp di kiri -->
 <a href="https://wa.me/6282197770219" target="_blank"
-   class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-white font-bold hover:text-gray-300 glow">
+   class="absolute left-4 top-1/2 -translate-y-1/2 text-3xl text-white font-bold hover:text-gray-300 glow">
   <i class="ri-whatsapp-line"></i>
 </a>
 
@@ -91,7 +91,7 @@ nav {
   </div>
 
   <!-- Instagram di kanan -->
-<a href="https://instagram.com/rhanray_" target="_blank" class="instagram-icon absolute right-4 top-1/2 -translate-y-1/2 text-4xl">
+<a href="https://instagram.com/rhanray_" target="_blank" class="instagram-icon absolute right-4 top-1/2 -translate-y-1/2 text-3xl">
   <i class="ri-instagram-line"></i>
 </a>
 
@@ -109,62 +109,86 @@ nav {
 <script>
   const container = document.getElementById('product-container');
 
-  // Buat array deskripsi, satu per produk (1-50)
-  const descriptions = [
-    "Custom art hoodie with vibrant colors and unique design.",
-    "Limited edition hoodie featuring original artwork.",
-    "Hand-painted hoodie perfect for streetwear lovers.",
-    "High-quality hoodie with custom graphic print.",
-    "Unique hoodie designed by local artists.",
-    "Comfortable hoodie with exclusive art details.",
-    "Bold and colorful hoodie for art enthusiasts.",
-    "Customizable hoodie with your own art design.",
-    "Soft fabric hoodie with eye-catching art patterns.",
-    "Stylish hoodie with urban art inspiration.",
-    "Trendy hoodie featuring graffiti style artwork.",
-    "Original design hoodie made for creative minds.",
-    "Hoodie with artistic prints for casual wear.",
-    "Custom art hoodie that stands out in the crowd.",
-    "Hoodie with hand-drawn illustrations on the back.",
-    "Limited run hoodie with one-of-a-kind artwork.",
-    "Soft and durable hoodie with custom sketches.",
-    "Artistic hoodie inspired by pop culture icons.",
-    "Hoodie featuring bold brushstroke art.",
-    "Comfort-fit hoodie with creative graphics.",
-    "Unique wearable art hoodie for daily use.",
-    "Custom graphic hoodie with vibrant paint splashes.",
-    "Hoodie designed to express your artistic side.",
-    "Eye-catching hoodie with abstract art motifs.",
-    "Hoodie with original comic-style artwork.",
-    "Art-inspired hoodie in premium cotton fabric.",
-    "Hoodie with colorful street art prints.",
-    "Creative hoodie with modern art vibes.",
-    "Hoodie featuring custom logo and graphic art.",
-    "Soft hoodie with artsy hand-painted details.",
-    "Bold design hoodie for fashion-forward artists.",
-    "Hoodie with unique art textures and patterns.",
-    "Stylish and comfy hoodie for art lovers.",
-    "Hoodie featuring digital art graphics.",
-    "Limited edition hoodie with intricate designs.",
-    "Custom printed hoodie inspired by graffiti culture.",
-    "Hoodie with hand-crafted artwork prints.",
-    "Premium hoodie with exclusive art collaboration.",
-    "Artistic hoodie blending comfort and style.",
-    "Hoodie with colorful artistic expressions.",
-    "Creative hoodie perfect for casual outings.",
-    "Unique design hoodie with bold illustrations.",
-    "Hoodie made for lovers of custom street art.",
-    "Vibrant art hoodie with modern design elements.",
-    "Hoodie featuring bold and edgy graphics.",
-    "Comfy hoodie with hand-drawn art details.",
-    "Limited edition art hoodie with unique patterns.",
-    "Soft cotton hoodie with custom paint effects.",
-    "Creative hoodie with bold color contrasts.",
-    "Hoodie designed for individual artistic expression.",
-    "Art-inspired hoodie with creative flair."
-  ];
+const descriptions = [
+  "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
+  "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
+  "A premium hoodie illuminated by a mysterious, radiant eye motif.",
+  "Custom-crafted masterpiece showcasing a third eye skull design of supreme artistry.",
+  "A bold, visionary hoodie fusing surreal skull and divine eye symbolism.",
+  "An exquisite hoodie with artful cracked skull and awakened eye imagery.",
+  "A gothic treasure featuring a skull locked in an eternal, mesmerizing gaze.",
+  "An elite streetwear piece adorned with timeless ancient skull artistry.",
+  "A refined art hoodie featuring a prophetic eye illuminating a majestic skull.",
+  "A mystical, high-end hoodie engraved with a dark eye within a sculpted skull.",
+  "A masterful fusion of skull and eye motifs crafted for audacious expression.",
+  "An exclusive hoodie channeling death’s enigmatic and sovereign gaze.",
+  "A sophisticated piece with skull art exuding potent occult energy.",
+  "A striking dark hoodie sculpted with decayed skull and luminous eye brilliance.",
+  "An elegant hoodie embodying profound symbolism of mortality and transcendence.",
+  "A wearable art jewel, showcasing a haunted skull visage of exquisite detail.",
+  "An iconic hoodie featuring the ghostly sentinel of forgotten realms.",
+  "An intricately detailed cosmic skull hoodie with an all-seeing eye centerpiece.",
+  "A shadowy masterpiece with a skull staring into the abyss of the night.",
+  "A bold design hoodie accentuated by cracked bones and mystical sight.",
+  "A custom-crafted marvel featuring a hollow skull with an intense, deep stare.",
+  "An eerie, artful hoodie highlighting a lone skeletal eye with haunting grace.",
+  "A unique hoodie portraying death’s omnipresent and all-seeing presence.",
+  "An art hoodie boasting sharp spectral lines and haunting skull visions.",
+  "A sophisticated hoodie sketched with a crowned skull and divine eye symbol.",
+  "A one-of-a-kind hoodie showcasing a ghostly eye nestled within a skull.",
+  "An elite gothic piece with sacred skull gaze motifs of ancient power.",
+  "A wearable art icon combining ancient bones and visionary insight.",
+  "A dark spirit hoodie featuring a vigilant skull, eternally watchful.",
+  "A custom hoodie bearing a skeletal face with fiery, supernatural eyes.",
+  "An inspired hoodie evoking chilling visions from the underworld depths.",
+  "An artistic treasure with skull fragments reflecting mesmerizing eyes.",
+  "A stylized hoodie depicting drifting souls and vigilant skull observers.",
+  "A custom hoodie with cracked mask and glowing pupil, exuding mystery.",
+  "A dark art masterpiece forged through shadows and ancient visions.",
+  "A skull-themed hoodie evoking profound otherworldly perception.",
+  "A bold art hoodie possessed by visionary skull imagery of distinction.",
+  "A custom hoodie featuring a detailed, cursed skull glare of intensity.",
+  "A ritualistic hoodie with a piercing eye that penetrates the void.",
+  "An edgy, chaotic art hoodie born from the primordial forces of creation.",
+  "A timeless skull art hoodie with a watchful, eternal, commanding eye.",
+  "A unique hoodie featuring relic skull and enlightened mind symbolism.",
+  "A mystic art hoodie portraying a skull in a deep dreamlike trance.",
+  "A haunting hoodie with a profound eye set in a hollow skull’s depth.",
+  "A custom hoodie revealing death’s unyielding and crystal-clear clarity.",
+  "An elegant hoodie crafted with skull and eternal visionary motifs.",
+  "A gothic masterpiece featuring an ancient watcher skull of lore.",
+  "A custom hoodie inspired by silent, ever-present shadow sentinels.",
+  "A dark hoodie etched with skull and profound insightful details.",
+  "A skull and eye hoodie designed for seekers of arcane mysteries.",
+  "An artistic hoodie lifting the veil with exquisite skull-themed artwork.",
+  "A hoodie featuring a truth-bearing skull illustration of supreme craft.",
+  "A custom art hoodie that gazes deeply into the soul’s hidden core.",
+  "A skull design hoodie awakening unseen, primordial forces.",
+  "A meditative hoodie showcasing skull and sacred visionary symbols.",
+  "A hoodie revealing glimpses beyond the mortal veil of death.",
+  "A custom hoodie adorned with primal skull and soulful eye designs.",
+  "An art hoodie channeling the timeless wisdom of forgotten knowledge.",
+  "A stylish hoodie embodying death’s eternal and regal stare.",
+  "A custom-crafted bone and vision hoodie made for profound depth.",
+  "A skull hoodie designed to confront the vast unknown darkness.",
+  "A dark hoodie whispering ancient truths through an unseen eye.",
+  "An artistic hoodie haunted by the ethereal gaze of a spectral skull.",
+  "A hoodie featuring the eye of judgment within a skeletal temple of power.",
+  "A custom hoodie blending decay and visionary perception with grandeur.",
+  "A skull design hoodie forged for the dark visionaries and dreamers.",
+  "A hoodie showcasing skulls touched by the power of cursed sight.",
+  "A custom hoodie embodying skeletal presence and enlightened open eye.",
+  "A wraith skull hoodie forged in visionary street art brilliance.",
+  "A stylish hoodie crafted for those who perceive the unseen in darkness.",
+  "An eye of death hoodie designed with meticulous, regal detail.",
+  "A custom hoodie featuring awakened spirit skull art of distinction.",
+  "A bone and soul hoodie crafted for introspective and elite wear.",
+  "A hoodie portraying an ancient skull bearing a secret, sacred eye.",
+  "A gothic art hoodie with a visionary eye rising from the skull’s depths."
+];
 
-  for (let i = 1; i <= 50; i++) {
+
+  for (let i = 1; i <= 72; i++) {
     // Buat elemen div utama produk
     const productDiv = document.createElement('div');
     productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
@@ -187,12 +211,12 @@ nav {
 
     // Harga produk
     const price = document.createElement('div');
-    price.className = 'text-orange-500 font-bold mb-4';
+    price.className = 'text-black-500 font-bold mb-4';
     price.textContent = 'Rp250.000';
 
  // Tombol beli
 const button = document.createElement('button');
-button.className = 'mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded transition duration-300';
+button.className = 'mt-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300';
 button.textContent = 'Beli Sekarang';
 
 button.addEventListener('click', () => {
