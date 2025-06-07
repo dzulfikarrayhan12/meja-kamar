@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white p-4 shadow-md flex items-center justify-between">
+    <h1 class="text-xl font-bold">Checkout</h1>
+  </header>
+
+  <!-- List Produk -->
+  <main class="flex-1 p-4 space-y-4" id="checkout-list">
+    <!-- Produk akan ditambahkan oleh JavaScript -->
+  </main>
+
+  <!-- Ringkasan dan Tombol Bayar -->
+  <section class="bg-white p-4 shadow-md rounded-t-xl">
+    <div class="flex justify-between text-lg font-semibold mb-4">
+      <span>Total</span>
+      <span id="total-price">Rp0</span>
+    </div>
+    <button id="pay-btn"
+  class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+  style="margin-left: 120px; width: calc(100% - 96px);">
+      Bayar Sekarang
+    </button>
+  </section>
+
+  <!-- Tombol Kembali -->
+  <a href="index.html"
+     class="fixed bottom-7 left-1 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-full shadow-md flex items-center gap-2">
+    <i class="ri-arrow-left-line text-xl"></i>
+    <span>Kembali</span>
+  </a>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('checkout')) || [];
+    const checkoutList = document.getElementById('checkout-list');
+    const totalPriceElement = document.getElementById('total-price');
+
+    if (cart.length === 0) {
+      checkoutList.innerHTML = `<div class="text-center text-gray-500 mt-10">Keranjang kosong.</div>`;
+    } else {
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.className = 'bg-white p-4 rounded-lg shadow flex items-center gap-4';
+
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.title;
+        img.className = 'w-20 h-20 object-cover rounded';
+
+        const info = document.createElement('div');
+        info.className = 'flex-1';
+        info.innerHTML = `
+          <h3 class="text-md font-semibold">${item.title}</h3>
+          <p class="text-sm text-gray-500">${item.desc}</p>
+          <p class="text-orange-500 font-bold mt-1">${item.price}</p>
+        `;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'text-red-500 hover:text-red-700';
+        removeBtn.innerHTML = '<i class="ri-delete-bin-line text-xl"></i>';
+        removeBtn.onclick = () => {
+          cart.splice(index, 1);
+          localStorage.setItem('checkout', JSON.stringify(cart));
+          location.reload();
+        };
+
+        productDiv.appendChild(img);
+        productDiv.appendChild(info);
+        productDiv.appendChild(removeBtn);
+        checkoutList.appendChild(productDiv);
+
+        // Hitung total
+        const price = parseInt(item.price.replace(/\D/g, '')) || 0;
+        total += price;
+      });
+
+      totalPriceElement.textContent = `Rp${total.toLocaleString('id-ID')}`;
+    }
+
+     // Tambah event listener untuk tombol bayar
+  const payBtn = document.getElementById("pay-btn");
+  payBtn.addEventListener("click", () => {
+    if (cart.length === 0) {
+      alert("Keranjang kosong.");
+      return;
+    }
+
+    // Ambil riwayat lama
+    const history = JSON.parse(localStorage.getItem("history")) || [];
+
+    // Tambah transaksi baru ke riwayat
+    history.push({
+      items: cart,
+      total: totalPriceElement.textContent,
+      time: new Date().toLocaleString(),
+      status: "Belum Dibayar"
+    });
+
+    // Simpan kembali ke localStorage
+    localStorage.setItem("history", JSON.stringify(history));
+
+    // Hapus isi keranjang
+    localStorage.removeItem("checkout");
+
+    // Redirect ke halaman sukses atau alert
+    alert("Pembayaran berhasil. Terima kasih!");
+    window.location.href = "index.html"; // Atau halaman sukses.html jika kamu punya
+  });
+  </script>
+</body>
+</html>

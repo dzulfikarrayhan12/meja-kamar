@@ -6,52 +6,97 @@
   <title>Produk Responsif </title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Passero+One&display=swap" rel="stylesheet" />
+
   <style>
-    @keyframes neonPulse {
-      0% {
-        text-shadow: none;
-        color: #ffffff80; /* redup */
-      }
-      20% {
-        text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 20px #f00;
-        color: #f00; /* terang merah */
-      }
-      80% {
-        text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 20px #f00;
-        color: #f00; /* tahan terang */
-      }
-      100% {
-        text-shadow: none;
-        color: #ffffff80; /* redup kembali */
-      }
-    }
-    .neon-glow {
-      animation: neonPulse 10s infinite;
-    }
+.logo-font {
+  font-family: 'Passero One', cursive;
+}
+
+nav {
+  background-color: rgba(0, 0, 0, 0.75); /* hitam transparan 30% */
+  backdrop-filter: blur(4px);           /* blur lembut */
+  -webkit-backdrop-filter: blur(4px);   /* untuk browser Safari */
+}
+
+.glow {
+  text-shadow:
+    0 0 1px #0f0,
+    0 0 4px #fff,
+    0 0 7px #0f0;
+}
+
+
+@keyframes neonPulse {
+  0% {
+    text-shadow: none;
+    color: #80000080; /* merah gelap redup */
+  }
+  20% {
+    text-shadow: 0 0 5px #b30000, 0 0 10px #b30000, 0 0 20px #b30000;
+    color: #b30000; /* merah gelap terang */
+  }
+  80% {
+    text-shadow: 0 0 5px #b30000, 0 0 10px #b30000, 0 0 20px #b30000;
+    color: #b30000;
+  }
+  100% {
+    text-shadow: none;
+    color: #80000080; /* kembali redup */
+  }
+}
+
+.neon-glow {
+  animation: neonPulse 8s infinite;
+}
+
+
+.instagram-icon i {
+  /* Warna gradasi Instagram */
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+
+  /* Efek glow permanen */
+  text-shadow:
+     0 0 3px #fff,       /* Cahaya putih lembut */
+    0 0 5px #fff,       /* Tambahan glow putih */
+    0 0 3px #feda75,
+    0 0 6px #fa7e1e,
+    0 0 4px #d62976,
+    0 0 1px #962fbf,
+    0 0 0px #4f5bd5;
+}
+
+
   </style>
 </head>
 <body class="bg-gray-100">
 
 <!-- Navbar -->
-<nav class="bg-gray-800 text-white px-4 py-3 flex items-center justify-between sticky top-0 z-10 relative">
-  <div class="flex space-x-4 text-xl">
-    <!-- WhatsApp -->
-    <a href="https://wa.me/6282197770219" target="_blank" class="hover:text-green-400">
-      <i class="ri-whatsapp-line"></i>
-    </a>
-    <!-- Instagram -->
-    <a href="https://instagram.com/rhanray_" target="_blank" class="hover:text-pink-400">
-      <i class="ri-instagram-line"></i>
-    </a>
-  </div>
-  <div class="absolute left-1/2 transform -translate-x-1/2 text-lg font-bold neon-glow">
+<nav class="bg-black/69 backdrop-blur-sm text-white px-4 py-3 h-11 flex items-center justify-between sticky top-0 z-10">
+  <div class="flex-1">
+
+  <!-- WhatsApp di kiri -->
+<a href="https://wa.me/6282197770219" target="_blank"
+   class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-white font-bold hover:text-gray-300 glow">
+  <i class="ri-whatsapp-line"></i>
+</a>
+
+
+  <!-- Logo di tengah -->
+  <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 logo-font neon-glow text-3xl font-bold">
     DZULFIKAR
   </div>
 
-  <!--home-->
-  <div class="text-xl">
-    <a href="#" class="hover:text-blue-400"><i class="ri-home-2-line"></i></a>
-  </div>
+  <!-- Instagram di kanan -->
+<a href="https://instagram.com/rhanray_" target="_blank" class="instagram-icon absolute right-4 top-1/2 -translate-y-1/2 text-4xl">
+  <i class="ri-instagram-line"></i>
+</a>
+
+</nav>
+
 </nav>
 
 <!-- Container Produk -->
@@ -145,10 +190,25 @@
     price.className = 'text-orange-500 font-bold mb-4';
     price.textContent = 'Rp250.000';
 
-    // Tombol beli
-    const button = document.createElement('button');
-    button.className = 'mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded transition duration-300';
-    button.textContent = 'Beli Sekarang';
+ // Tombol beli
+const button = document.createElement('button');
+button.className = 'mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded transition duration-300';
+button.textContent = 'Beli Sekarang';
+
+button.addEventListener('click', () => {
+  const item = {
+    title: title.textContent,
+    desc: desc.textContent,
+    price: price.textContent,
+    image: img.src
+  };
+
+  const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+  cart.push(item);
+  localStorage.setItem("checkout", JSON.stringify(cart));
+
+  window.location.href = "checkout.html";
+});
 
     // Masukkan semua elemen ke dalam div produk
     productDiv.appendChild(img);
