@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Produk Responsif Tailwind</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    @keyframes neonPulse {
+      0% {
+        text-shadow: none;
+        color: #ffffff80; /* redup */
+      }
+      20% {
+        text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 20px #f00;
+        color: #f00; /* terang merah */
+      }
+      80% {
+        text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 20px #f00;
+        color: #f00; /* tahan terang */
+      }
+      100% {
+        text-shadow: none;
+        color: #ffffff80; /* redup kembali */
+      }
+    }
+    .neon-glow {
+      animation: neonPulse 10s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+<!-- Navbar -->
+<nav class="bg-gray-800 text-white px-4 py-3 flex items-center justify-between sticky top-0 z-10 relative">
+  <div class="flex space-x-4 text-xl">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/6282197770219" target="_blank" class="hover:text-green-400">
+      <i class="ri-whatsapp-line"></i>
+    </a>
+    <!-- Instagram -->
+    <a href="https://instagram.com/rhanray_" target="_blank" class="hover:text-pink-400">
+      <i class="ri-instagram-line"></i>
+    </a>
+  </div>
+  <div class="absolute left-1/2 transform -translate-x-1/2 text-lg font-bold neon-glow">
+    DZULFIKAR
+  </div>
+
+  <!--home-->
+  <div class="text-xl">
+    <a href="#" class="hover:text-blue-400"><i class="ri-home-2-line"></i></a>
+  </div>
+</nav>
+
+<!-- Container Produk -->
+<div class="p-4">
+  <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Produk akan dimasukkan oleh JS -->
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('product-container');
+
+  // Buat array deskripsi, satu per produk (1-50)
+  const descriptions = [
+    "Custom art hoodie with vibrant colors and unique design.",
+    "Limited edition hoodie featuring original artwork.",
+    "Hand-painted hoodie perfect for streetwear lovers.",
+    "High-quality hoodie with custom graphic print.",
+    "Unique hoodie designed by local artists.",
+    "Comfortable hoodie with exclusive art details.",
+    "Bold and colorful hoodie for art enthusiasts.",
+    "Customizable hoodie with your own art design.",
+    "Soft fabric hoodie with eye-catching art patterns.",
+    "Stylish hoodie with urban art inspiration.",
+    "Trendy hoodie featuring graffiti style artwork.",
+    "Original design hoodie made for creative minds.",
+    "Hoodie with artistic prints for casual wear.",
+    "Custom art hoodie that stands out in the crowd.",
+    "Hoodie with hand-drawn illustrations on the back.",
+    "Limited run hoodie with one-of-a-kind artwork.",
+    "Soft and durable hoodie with custom sketches.",
+    "Artistic hoodie inspired by pop culture icons.",
+    "Hoodie featuring bold brushstroke art.",
+    "Comfort-fit hoodie with creative graphics.",
+    "Unique wearable art hoodie for daily use.",
+    "Custom graphic hoodie with vibrant paint splashes.",
+    "Hoodie designed to express your artistic side.",
+    "Eye-catching hoodie with abstract art motifs.",
+    "Hoodie with original comic-style artwork.",
+    "Art-inspired hoodie in premium cotton fabric.",
+    "Hoodie with colorful street art prints.",
+    "Creative hoodie with modern art vibes.",
+    "Hoodie featuring custom logo and graphic art.",
+    "Soft hoodie with artsy hand-painted details.",
+    "Bold design hoodie for fashion-forward artists.",
+    "Hoodie with unique art textures and patterns.",
+    "Stylish and comfy hoodie for art lovers.",
+    "Hoodie featuring digital art graphics.",
+    "Limited edition hoodie with intricate designs.",
+    "Custom printed hoodie inspired by graffiti culture.",
+    "Hoodie with hand-crafted artwork prints.",
+    "Premium hoodie with exclusive art collaboration.",
+    "Artistic hoodie blending comfort and style.",
+    "Hoodie with colorful artistic expressions.",
+    "Creative hoodie perfect for casual outings.",
+    "Unique design hoodie with bold illustrations.",
+    "Hoodie made for lovers of custom street art.",
+    "Vibrant art hoodie with modern design elements.",
+    "Hoodie featuring bold and edgy graphics.",
+    "Comfy hoodie with hand-drawn art details.",
+    "Limited edition art hoodie with unique patterns.",
+    "Soft cotton hoodie with custom paint effects.",
+    "Creative hoodie with bold color contrasts.",
+    "Hoodie designed for individual artistic expression.",
+    "Art-inspired hoodie with creative flair."
+  ];
+
+  for (let i = 1; i <= 50; i++) {
+    // Buat elemen div utama produk
+    const productDiv = document.createElement('div');
+    productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
+
+    // Gambar produk
+    const img = document.createElement('img');
+    img.src = `/images/${i}.jpg`;
+    img.alt = `Produk ${i}`;
+    img.className = 'w-full h-85 object-cover rounded-md mb-4';
+
+    // Judul produk
+    const title = document.createElement('h3');
+    title.className = 'text-lg font-semibold mb-1';
+    title.textContent = `Produk ${i}`;
+
+    // Deskripsi produk ambil dari array descriptions
+    const desc = document.createElement('p');
+    desc.className = 'text-gray-600 text-sm mb-2';
+    desc.textContent = descriptions[i - 1];  // i-1 karena index array mulai dari 0
+
+    // Harga produk
+    const price = document.createElement('div');
+    price.className = 'text-orange-500 font-bold mb-4';
+    price.textContent = 'Rp250.000';
+
+    // Tombol beli
+    const button = document.createElement('button');
+    button.className = 'mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded transition duration-300';
+    button.textContent = 'Beli Sekarang';
+
+    // Masukkan semua elemen ke dalam div produk
+    productDiv.appendChild(img);
+    productDiv.appendChild(title);
+    productDiv.appendChild(desc);
+    productDiv.appendChild(price);
+    productDiv.appendChild(button);
+
+    // Masukkan produk ke container utama
+    container.appendChild(productDiv);
+  }
+</script>
+
+
+</body>
+</html>
