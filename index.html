@@ -216,8 +216,8 @@ const descriptions = [
 
  // Tombol beli
 const button = document.createElement('button');
-button.className = 'mt-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300';
-button.textContent = 'Beli Sekarang';
+button.className = 'mt-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300 relative flex items-center justify-center gap-2';
+button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Beli Sekarang</span>';
 
 button.addEventListener('click', () => {
   const item = {
