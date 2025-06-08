@@ -6,9 +6,16 @@
   <title>Produk Responsif</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Passero+One&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
   <style>
-    .logo-font { font-family: 'Passero One', cursive; }
+ .logo-font {
+  font-family: "Nosifer", sans-serif;
+  color: #f5f5f5; /* putih susu */
+  text-shadow: none; /* pastikan tidak ada efek neon */
+}
+
     nav {
       background-color: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(4px);
@@ -16,14 +23,7 @@
     .glow {
       text-shadow: 0 0 1px #0f0, 0 0 4px #fff, 0 0 7px #0f0;
     }
-    @keyframes neonPulse {
-      0% { text-shadow: none; color: #a6bfcf80; }
-      20%, 80% {
-        text-shadow: 0 0 6px #dff9ff, 0 0 12px #c6e9f7, 0 0 24px #b0d4e3;
-        color: #dff9ff;
-      }
-      100% { text-shadow: none; color: #a6bfcf80; }
-    }
+
     .neon-glow { animation: neonPulse 8s infinite; }
     .instagram-icon i {
       background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
@@ -60,9 +60,10 @@
     </button>
   </div>
 
-  <div class="logo-font neon-glow text-3xl font-bold select-none ml-24">
-    DZULFIKAR
-  </div>
+<div id="logo" class="logo-font neon-glow text-3xl font-bold select-none ml-24">
+  DZULFiKAR
+</div>
+
 
   <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
     <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="Shopping cart">
@@ -244,6 +245,8 @@
     updateCartCount();
   });
 
+  
+
   // Append elemen sesuai urutan tampilannya:
   productDiv.appendChild(img);
   productDiv.appendChild(title);
@@ -253,6 +256,35 @@
 
   container.appendChild(productDiv);
 }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.getElementById('logo');
+    const text = 'dzulfikar';   // mulai dari huruf kecil d
+    const typingSpeed = 200;    // kecepatan ketik per huruf (ms)
+    const pauseAfterTyping = 5000; // tahan 5 detik setelah selesai
+
+    function typeWriter() {
+      let i = 0;
+      logo.textContent = '';
+
+      function type() {
+        if (i < text.length) {
+          logo.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, typingSpeed);
+        } else {
+          setTimeout(() => {
+            logo.textContent = '';
+            typeWriter();
+          }, pauseAfterTyping);
+        }
+      }
+
+      type();
+    }
+
+    typeWriter();
+  });
 
 
 </script>
