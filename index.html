@@ -3,249 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Produk Responsif </title>
+  <title>Produk Responsif</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Passero+One&display=swap" rel="stylesheet" />
-
   <style>
-.logo-font {
-  font-family: 'Passero One', cursive;
-}
+    .logo-font {
+      font-family: 'Passero One', cursive;
+    }
 
-nav {
-  background-color: rgba(0, 0, 0, 0.75); /* hitam transparan 30% */
-  backdrop-filter: blur(4px);           /* blur lembut */
-  -webkit-backdrop-filter: blur(4px);   /* untuk browser Safari */
-}
+    nav {
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
 
-.glow {
-  text-shadow:
-    0 0 1px #0f0,
-    0 0 4px #fff,
-    0 0 7px #0f0;
-}
+    .glow {
+      text-shadow:
+        0 0 1px #0f0,
+        0 0 4px #fff,
+        0 0 7px #0f0;
+    }
 
+    @keyframes neonPulse {
+      0% {
+        text-shadow: none;
+        color: #a6bfcf80;
+      }
+      20%, 80% {
+        text-shadow: 0 0 6px #dff9ff, 0 0 12px #c6e9f7, 0 0 24px #b0d4e3;
+        color: #dff9ff;
+      }
+      100% {
+        text-shadow: none;
+        color: #a6bfcf80;
+      }
+    }
 
-@keyframes neonPulse {
-  0% {
-    text-shadow: none;
-    color: #80000080; /* merah gelap redup */
-  }
-  20% {
-    text-shadow: 0 0 5px #b30000, 0 0 10px #b30000, 0 0 20px #b30000;
-    color: #b30000; /* merah gelap terang */
-  }
-  80% {
-    text-shadow: 0 0 5px #b30000, 0 0 10px #b30000, 0 0 20px #b30000;
-    color: #b30000;
-  }
-  100% {
-    text-shadow: none;
-    color: #80000080; /* kembali redup */
-  }
-}
+    .neon-glow {
+      animation: neonPulse 8s infinite;
+    }
 
-.neon-glow {
-  animation: neonPulse 8s infinite;
-}
+    .instagram-icon i {
+      background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      text-shadow:
+         0 0 3px #fff,
+         0 0 5px #fff,
+         0 0 3px #feda75,
+         0 0 6px #fa7e1e,
+         0 0 4px #d62976,
+         0 0 1px #962fbf,
+         0 0 0px #4f5bd5;
+      animation: blinkOnOff 4s infinite step-start;
+    }
 
-
-.instagram-icon i {
-  /* Warna gradasi Instagram */
-  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-
-  /* Efek glow permanen */
-  text-shadow:
-     0 0 3px #fff,       /* Cahaya putih lembut */
-    0 0 5px #fff,       /* Tambahan glow putih */
-    0 0 3px #feda75,
-    0 0 6px #fa7e1e,
-    0 0 4px #d62976,
-    0 0 1px #962fbf,
-    0 0 0px #4f5bd5;
-}
-
-
+    @keyframes blinkOnOff {
+      0%, 49.9% {
+        opacity: 1;
+        text-shadow:
+          0 0 3px #fff,
+          0 0 5px #fff,
+          0 0 3px #feda75,
+          0 0 6px #fa7e1e,
+          0 0 4px #d62976,
+          0 0 1px #962fbf,
+          0 0 0px #4f5bd5;
+      }
+      50%, 100% {
+        opacity: 0;
+        text-shadow: none;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-100">
 
 <!-- Navbar -->
-<nav class="bg-black/69 backdrop-blur-sm text-white px-4 py-3 h-14 flex items-center justify-between sticky top-0 z-10">
-  <div class="flex-1">
-
-  <!-- WhatsApp di kiri -->
-<a href="https://wa.me/6282197770219" target="_blank"
-   class="absolute left-4 top-1/2 -translate-y-1/2 text-3xl text-white font-bold hover:text-gray-300 glow">
-  <i class="ri-whatsapp-line"></i>
-</a>
-
-
-  <!-- Logo di tengah -->
-  <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 logo-font neon-glow text-3xl font-bold">
+<nav class="bg-black/70 backdrop-blur-sm text-white px-4 py-3 h-14 flex items-center justify-center sticky top-0 z-10 relative">
+  <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
+    <a href="https://wa.me/6282197770219" target="_blank" class="text-3xl text-white hover:text-gray-300 hover:scale-110 transition duration-200">
+      <i class="ri-whatsapp-line"></i>
+    </a>
+    <a href="https://instagram.com/rhanray_" target="_blank" class="text-3xl text-white hover:text-gray-300 hover:scale-110 transition duration-200">
+      <i class="ri-instagram-line"></i>
+    </a>
+  </div>
+  <div class="logo-font neon-glow text-3xl font-bold">
     DZULFIKAR
   </div>
-
-  <!-- Instagram di kanan -->
-<a href="https://instagram.com/rhanray_" target="_blank" class="instagram-icon absolute right-4 top-1/2 -translate-y-1/2 text-3xl">
-  <i class="ri-instagram-line"></i>
-</a>
-
-</nav>
-
+  <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
+    <a href="/profil" class="text-3xl text-white hover:text-gray-300 hover:scale-110 transition duration-200">
+      <i class="ri-user-line"></i>
+    </a>
+    <a href="checkout.html" class="relative text-3xl text-white hover:text-gray-300 hover:scale-110 transition duration-200">
+      <i class="ri-shopping-cart-line"></i>
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
+    </a>
+  </div>
 </nav>
 
 <!-- Container Produk -->
 <div class="p-4">
-  <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Produk akan dimasukkan oleh JS -->
-  </div>
+  <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </div>
 
 <script>
   const container = document.getElementById('product-container');
+  const cartCount = document.getElementById('cart-count');
 
-const descriptions = [
-  "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
-  "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
-  "A premium hoodie illuminated by a mysterious, radiant eye motif.",
-  "Custom-crafted masterpiece showcasing a third eye skull design of supreme artistry.",
-  "A bold, visionary hoodie fusing surreal skull and divine eye symbolism.",
-  "An exquisite hoodie with artful cracked skull and awakened eye imagery.",
-  "A gothic treasure featuring a skull locked in an eternal, mesmerizing gaze.",
-  "An elite streetwear piece adorned with timeless ancient skull artistry.",
-  "A refined art hoodie featuring a prophetic eye illuminating a majestic skull.",
-  "A mystical, high-end hoodie engraved with a dark eye within a sculpted skull.",
-  "A masterful fusion of skull and eye motifs crafted for audacious expression.",
-  "An exclusive hoodie channeling death’s enigmatic and sovereign gaze.",
-  "A sophisticated piece with skull art exuding potent occult energy.",
-  "A striking dark hoodie sculpted with decayed skull and luminous eye brilliance.",
-  "An elegant hoodie embodying profound symbolism of mortality and transcendence.",
-  "A wearable art jewel, showcasing a haunted skull visage of exquisite detail.",
-  "An iconic hoodie featuring the ghostly sentinel of forgotten realms.",
-  "An intricately detailed cosmic skull hoodie with an all-seeing eye centerpiece.",
-  "A shadowy masterpiece with a skull staring into the abyss of the night.",
-  "A bold design hoodie accentuated by cracked bones and mystical sight.",
-  "A custom-crafted marvel featuring a hollow skull with an intense, deep stare.",
-  "An eerie, artful hoodie highlighting a lone skeletal eye with haunting grace.",
-  "A unique hoodie portraying death’s omnipresent and all-seeing presence.",
-  "An art hoodie boasting sharp spectral lines and haunting skull visions.",
-  "A sophisticated hoodie sketched with a crowned skull and divine eye symbol.",
-  "A one-of-a-kind hoodie showcasing a ghostly eye nestled within a skull.",
-  "An elite gothic piece with sacred skull gaze motifs of ancient power.",
-  "A wearable art icon combining ancient bones and visionary insight.",
-  "A dark spirit hoodie featuring a vigilant skull, eternally watchful.",
-  "A custom hoodie bearing a skeletal face with fiery, supernatural eyes.",
-  "An inspired hoodie evoking chilling visions from the underworld depths.",
-  "An artistic treasure with skull fragments reflecting mesmerizing eyes.",
-  "A stylized hoodie depicting drifting souls and vigilant skull observers.",
-  "A custom hoodie with cracked mask and glowing pupil, exuding mystery.",
-  "A dark art masterpiece forged through shadows and ancient visions.",
-  "A skull-themed hoodie evoking profound otherworldly perception.",
-  "A bold art hoodie possessed by visionary skull imagery of distinction.",
-  "A custom hoodie featuring a detailed, cursed skull glare of intensity.",
-  "A ritualistic hoodie with a piercing eye that penetrates the void.",
-  "An edgy, chaotic art hoodie born from the primordial forces of creation.",
-  "A timeless skull art hoodie with a watchful, eternal, commanding eye.",
-  "A unique hoodie featuring relic skull and enlightened mind symbolism.",
-  "A mystic art hoodie portraying a skull in a deep dreamlike trance.",
-  "A haunting hoodie with a profound eye set in a hollow skull’s depth.",
-  "A custom hoodie revealing death’s unyielding and crystal-clear clarity.",
-  "An elegant hoodie crafted with skull and eternal visionary motifs.",
-  "A gothic masterpiece featuring an ancient watcher skull of lore.",
-  "A custom hoodie inspired by silent, ever-present shadow sentinels.",
-  "A dark hoodie etched with skull and profound insightful details.",
-  "A skull and eye hoodie designed for seekers of arcane mysteries.",
-  "An artistic hoodie lifting the veil with exquisite skull-themed artwork.",
-  "A hoodie featuring a truth-bearing skull illustration of supreme craft.",
-  "A custom art hoodie that gazes deeply into the soul’s hidden core.",
-  "A skull design hoodie awakening unseen, primordial forces.",
-  "A meditative hoodie showcasing skull and sacred visionary symbols.",
-  "A hoodie revealing glimpses beyond the mortal veil of death.",
-  "A custom hoodie adorned with primal skull and soulful eye designs.",
-  "An art hoodie channeling the timeless wisdom of forgotten knowledge.",
-  "A stylish hoodie embodying death’s eternal and regal stare.",
-  "A custom-crafted bone and vision hoodie made for profound depth.",
-  "A skull hoodie designed to confront the vast unknown darkness.",
-  "A dark hoodie whispering ancient truths through an unseen eye.",
-  "An artistic hoodie haunted by the ethereal gaze of a spectral skull.",
-  "A hoodie featuring the eye of judgment within a skeletal temple of power.",
-  "A custom hoodie blending decay and visionary perception with grandeur.",
-  "A skull design hoodie forged for the dark visionaries and dreamers.",
-  "A hoodie showcasing skulls touched by the power of cursed sight.",
-  "A custom hoodie embodying skeletal presence and enlightened open eye.",
-  "A wraith skull hoodie forged in visionary street art brilliance.",
-  "A stylish hoodie crafted for those who perceive the unseen in darkness.",
-  "An eye of death hoodie designed with meticulous, regal detail.",
-  "A custom hoodie featuring awakened spirit skull art of distinction.",
-  "A bone and soul hoodie crafted for introspective and elite wear.",
-  "A hoodie portraying an ancient skull bearing a secret, sacred eye.",
-  "A gothic art hoodie with a visionary eye rising from the skull’s depths."
-];
+  const descriptions = [
+    "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
+    "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
+    "A premium hoodie illuminated by a mysterious, radiant eye motif.",
+    "Custom-crafted masterpiece showcasing a third eye skull design of supreme artistry.",
+  ];
 
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+    cartCount.textContent = cart.length;
+  }
 
-  for (let i = 1; i <= 72; i++) {
-    // Buat elemen div utama produk
+  updateCartCount();
+
+  for (let i = 1; i <= 12; i++) {
     const productDiv = document.createElement('div');
     productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
 
-    // Gambar produk
     const img = document.createElement('img');
     img.src = `/images/${i}.jpg`;
     img.alt = `Produk ${i}`;
-    img.className = 'w-full h-85 object-cover rounded-md mb-4';
+    img.className = 'w-full h-[280px] object-contain rounded-md mb-4 bg-white';
 
-    // Judul produk
     const title = document.createElement('h3');
     title.className = 'text-lg font-semibold mb-1';
     title.textContent = `Produk ${i}`;
 
-    // Deskripsi produk ambil dari array descriptions
     const desc = document.createElement('p');
     desc.className = 'text-gray-600 text-sm mb-2';
-    desc.textContent = descriptions[i - 1];  // i-1 karena index array mulai dari 0
+    desc.textContent = descriptions[(i - 1) % descriptions.length];
 
-    // Harga produk
     const price = document.createElement('div');
     price.className = 'text-black-500 font-bold mb-4';
     price.textContent = 'Rp250.000';
 
- // Tombol beli
-const button = document.createElement('button');
-button.className = 'mt-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300 relative flex items-center justify-center gap-2';
-button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Beli Sekarang</span>';
+    const button = document.createElement('button');
+    button.className = 'mt-auto bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded transition duration-300 relative flex items-center justify-center gap-2';
 
-button.addEventListener('click', () => {
-  const item = {
-    title: title.textContent,
-    desc: desc.textContent,
-    price: price.textContent,
-    image: img.src
-  };
+    button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Tambah ke Keranjang</span>';
 
-  const cart = JSON.parse(localStorage.getItem("checkout")) || [];
-  cart.push(item);
-  localStorage.setItem("checkout", JSON.stringify(cart));
+    button.addEventListener('click', () => {
+      const item = {
+        title: title.textContent,
+        desc: desc.textContent,
+        price: price.textContent,
+        image: img.src
+      };
 
-  window.location.href = "checkout.html";
-});
+      const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+      cart.push(item);
+      localStorage.setItem("checkout", JSON.stringify(cart));
 
-    // Masukkan semua elemen ke dalam div produk
+      updateCartCount();
+    });
+
     productDiv.appendChild(img);
     productDiv.appendChild(title);
     productDiv.appendChild(desc);
     productDiv.appendChild(price);
     productDiv.appendChild(button);
 
-    // Masukkan produk ke container utama
     container.appendChild(productDiv);
   }
 </script>
-
 
 </body>
 </html>
