@@ -44,26 +44,85 @@
 <body class="bg-gray-100">
 
 <!-- Navbar -->
-<nav class="text-white px-4 py-3 h-14 flex items-center justify-center sticky top-0 z-10 relative">
+<nav class="text-white px-4 py-3 h-14 flex items-center justify-center sticky top-0 z-10 relative bg-black">
   <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
-    <a href="https://wa.me/6282197770219" target="_blank" class="text-3xl hover:text-gray-300 hover:scale-110 transition">
-      <i class="ri-whatsapp-line"></i>
-    </a>
-    <a href="https://instagram.com/rhanray_" target="_blank" class="text-3xl hover:text-gray-300 hover:scale-110 transition">
+    <!-- Instagram paling kiri -->
+    <a href="https://instagram.com/rhanray_" target="_blank" class="text-3xl hover:text-gray-300 hover:scale-110 transition instagram-icon">
       <i class="ri-instagram-line"></i>
     </a>
-  </div>
-  <div class="logo-font neon-glow text-3xl font-bold">DZULFIKAR</div>
-  <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
-    <a href="login.html" class="text-3xl hover:text-gray-300 hover:scale-110 transition">
-      <i class="ri-user-line"></i>
+    <!-- WhatsApp di samping Instagram -->
+    <a href="https://wa.me/6282197770219" target="_blank" class="text-3xl hover:text-green-600 hover:scale-110 transition" style="color: #25D366;">
+      <i class="ri-whatsapp-line"></i>
     </a>
-    <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition">
+    <!-- User button di samping WhatsApp -->
+    <button id="userBtn" class="text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="User account">
+      <i class="ri-user-line"></i>
+    </button>
+  </div>
+
+  <div class="logo-font neon-glow text-3xl font-bold select-none">
+    DZULFIKAR
+  </div>
+
+  <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
+    <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="Shopping cart">
       <i class="ri-shopping-cart-line"></i>
       <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
     </a>
   </div>
 </nav>
+
+
+<!-- Modal Login dan Register -->
+<div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
+  <div class="bg-white bg-opacity-20 backdrop-blur-md border border-white/30 rounded-3xl p-8 w-full max-w-sm shadow-lg text-white font-sans">
+    <h2 id="modalTitle" class="text-3xl font-semibold mb-6 text-center">Login</h2>
+
+    <form id="authForm" class="space-y-4">
+      <input type="text" id="username" placeholder="Username" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
+
+      <input type="email" id="email" placeholder="Email" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
+
+      <input type="password" id="password" placeholder="Password" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
+
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
+
+      <div class="flex justify-between items-center">
+     <button type="submit" id="submitBtn" 
+  class="px-6 py-3 rounded-xl bg-blue-600 bg-opacity-80 hover:bg-blue-700 transition font-semibold flex items-center justify-center gap-2 text-white">
+  <i class="ri-login-box-line"></i><span>Login</span>
+</button>
+
+        <button type="button" id="toggleBtn" class="underline text-sm text-black/70 hover:text-white">Register</button>
+        
+      </div>
+    </form>
+
+<div class="flex justify-end mt-4">
+  <button id="closeModalBtn" class="px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white">Tutup</button>
+</div>
+
+  </div>
+</div>
+
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #1a1a1a;
+  }
+  #loginModal {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  input::placeholder {
+    color: rgba(255 255 255 / 0.6);
+  }
+  input:focus {
+    border-color: #60a5fa;
+    background-color: rgba(255 255 255 / 0.3);
+  }
+</style>
 
 <!-- Container Produk -->
 <div class="p-4">
@@ -74,6 +133,62 @@
   const container = document.getElementById('product-container');
   const cartCount = document.getElementById('cart-count');
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginModal = document.getElementById('loginModal');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const modalTitle = document.getElementById('modalTitle');
+    const emailInput = document.getElementById('email');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const submitBtn = document.getElementById('submitBtn');
+    const userBtn = document.getElementById('userBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    let isRegister = false;
+
+    // Toggle antara Login <-> Register dengan update ikon
+    toggleBtn?.addEventListener('click', () => {
+      isRegister = !isRegister;
+      modalTitle.textContent = isRegister ? 'Register' : 'Login';
+      emailInput.classList.toggle('hidden', !isRegister);
+      confirmPasswordInput.classList.toggle('hidden', !isRegister);
+      if (isRegister) {
+        submitBtn.innerHTML = `<i class="ri-user-add-line"></i><span>Register</span>`;
+        toggleBtn.textContent = 'Login';
+      } else {
+        submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
+        toggleBtn.textContent = 'Register';
+      }
+    });
+
+    // Buka modal login/register
+    userBtn?.addEventListener('click', () => {
+      loginModal?.classList.remove('hidden');
+      loginModal?.classList.add('flex');
+    });
+
+    // Tutup modal login/register
+    closeModalBtn?.addEventListener('click', () => {
+      loginModal?.classList.add('hidden');
+      loginModal?.classList.remove('flex');
+      // Reset ke login
+      isRegister = false;
+      modalTitle.textContent = 'Login';
+      emailInput.classList.add('hidden');
+      confirmPasswordInput.classList.add('hidden');
+      submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
+      toggleBtn.textContent = 'Register';
+    });
+  });
+
+  // Update jumlah item di keranjang dari localStorage
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+    if (cartCount) cartCount.textContent = totalQty;
+  }
+  updateCartCount();
+
+  // Contoh deskripsi produk
   const descriptions = [
     "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
     "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
@@ -81,68 +196,65 @@
     "Custom-crafted masterpiece showcasing a third eye skull design of supreme artistry.",
   ];
 
-  function updateCartCount() {
+  // Render produk secara dinamis
+ for (let i = 1; i <= 12; i++) {
+  const productDiv = document.createElement('div');
+  productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
+
+  const img = document.createElement('img');
+  img.src = `/images/${i}.jpg`;
+  img.alt = `Produk ${i}`;
+  img.className = 'w-full h-[280px] object-contain rounded-md mb-4 bg-white';
+
+  const title = document.createElement('h3');
+  title.className = 'text-lg font-semibold mb-1';
+  title.textContent = `Produk ${i}`;
+
+  const desc = document.createElement('p');
+  desc.className = 'text-gray-600 text-sm mb-2';
+  desc.textContent = descriptions[(i - 1) % descriptions.length];
+
+  const price = document.createElement('div');
+  price.className = 'text-black-500 font-bold mb-4';
+  price.textContent = 'Rp250.000';
+
+  const button = document.createElement('button');
+  button.className = 'mt-auto bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded transition flex items-center justify-center gap-2 relative';
+  button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Tambah ke Keranjang</span>';
+
+  button.addEventListener('click', () => {
+    const item = {
+      title: title.textContent,
+      desc: desc.textContent,
+      price: price.textContent,
+      image: img.src,
+      qty: 1
+    };
+
     const cart = JSON.parse(localStorage.getItem("checkout")) || [];
-    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-    cartCount.textContent = totalQty;
-  }
+    const existing = cart.find(p => p.title === item.title);
 
-  updateCartCount();
+    if (existing) {
+      existing.qty = (existing.qty || 1) + 1;
+    } else {
+      cart.push(item);
+    }
 
-  for (let i = 1; i <= 12; i++) {
-    const productDiv = document.createElement('div');
-    productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
+    localStorage.setItem("checkout", JSON.stringify(cart));
+    updateCartCount();
+  });
 
-    const img = document.createElement('img');
-    img.src = `/images/${i}.jpg`;
-    img.alt = `Produk ${i}`;
-    img.className = 'w-full h-[280px] object-contain rounded-md mb-4 bg-white';
+  // Append elemen sesuai urutan tampilannya:
+  productDiv.appendChild(img);
+  productDiv.appendChild(title);
+  productDiv.appendChild(desc);
+  productDiv.appendChild(price);
+  productDiv.appendChild(button);
 
-    const title = document.createElement('h3');
-    title.className = 'text-lg font-semibold mb-1';
-    title.textContent = `Produk ${i}`;
+  container.appendChild(productDiv);
+}
 
-    const desc = document.createElement('p');
-    desc.className = 'text-gray-600 text-sm mb-2';
-    desc.textContent = descriptions[(i - 1) % descriptions.length];
 
-    const price = document.createElement('div');
-    price.className = 'text-black-500 font-bold mb-4';
-    price.textContent = 'Rp250.000';
-
-    const button = document.createElement('button');
-    button.className = 'mt-auto bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded transition flex items-center justify-center gap-2 relative';
-    button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Tambah ke Keranjang</span>';
-
-    button.addEventListener('click', () => {
-      const item = {
-        title: title.textContent,
-        desc: desc.textContent,
-        price: price.textContent,
-        image: img.src,
-        qty: 1
-      };
-
-      const cart = JSON.parse(localStorage.getItem("checkout")) || [];
-      const existing = cart.find(p => p.title === item.title);
-
-      if (existing) {
-        existing.qty = (existing.qty || 1) + 1;
-      } else {
-        cart.push(item);
-      }
-
-      localStorage.setItem("checkout", JSON.stringify(cart));
-      updateCartCount();
-    });
-
-    productDiv.appendChild(img);
-    productDiv.appendChild(title);
-    productDiv.appendChild(desc);
-    productDiv.appendChild(price);
-    productDiv.appendChild(button);
-    container.appendChild(productDiv);
-  }
 </script>
 
 </body>
