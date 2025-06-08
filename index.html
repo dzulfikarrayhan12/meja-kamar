@@ -10,11 +10,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
   <style>
- .logo-font {
+.logo-font {
   font-family: "Nosifer", sans-serif;
-  color: #f5f5f5; /* putih susu */
-  text-shadow: none; /* pastikan tidak ada efek neon */
+  color: #8B0000; /* warna merah darah */
+  text-shadow: none; /* hilangkan efek neon */
+  font-size: 5vw;
 }
+
 
     nav {
       background-color: rgba(0, 0, 0, 0.75);
@@ -39,6 +41,34 @@
       0%, 49.9% { opacity: 1; }
       50%, 100% { opacity: 0; text-shadow: none; }
     }
+
+#userBtn i {
+  color: #229ED9; /* biru Telegram */
+}
+
+#cart-count {
+  display: none;
+}
+
+.glow-super-bright {
+  color: #ffffff;
+  text-shadow:
+    0 0 8px #ffffff,
+    0 0 16px #ffffff,
+    0 0 24px #ffffff,
+    0 0 32px #ffffff,
+    0 0 40px #ffffff,
+    0 0 50px #ffffff;
+}
+
+.input-white-glow {
+  color: #f5f5f5; /* putih susu */
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+
   </style>
 </head>
 <body class="bg-gray-100">
@@ -61,14 +91,14 @@
   </div>
 
 <div id="logo" class="logo-font neon-glow text-1xxl font-bold select-none ml-20">
-  DZULFiKAR
+  dzulfikar
 </div>
 
 
   <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
     <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="Shopping cart">
       <i class="ri-shopping-cart-line"></i>
-      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-blue-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
     </a>
   </div>
 </nav>
@@ -76,17 +106,21 @@
 
 <!-- Modal Login dan Register -->
 <div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
-  <div class="bg-white bg-opacity-20 backdrop-blur-md border border-white/30 rounded-3xl p-8 w-full max-w-sm shadow-lg text-white font-sans">
+  <div class="bg-white bg-opacity-20 backdrop-blur-md border border-white/30 rounded-3xl p-8 w-full max-w-sm shadow-lg text-blue font-sans">
     <h2 id="modalTitle" class="text-3xl font-semibold mb-6 text-center">Login</h2>
 
     <form id="authForm" class="space-y-4">
-      <input type="text" id="username" placeholder="Username" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
+ <input type="text" id="username" placeholder="Username"
+  class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 
+  text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+  focus:border-blue-400" required />
 
-      <input type="email" id="email" placeholder="Email" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
 
-      <input type="password" id="password" placeholder="Password" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
+      <input type="email" id="email" placeholder="Email" class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
 
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" class="w-full px-5 py-3 rounded-xl bg-white bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
+      <input type="password" id="password" placeholder="Password" class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
+
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
 
       <div class="flex justify-between items-center">
      <button type="submit" id="submitBtn" 
@@ -94,13 +128,16 @@
   <i class="ri-login-box-line"></i><span>Login</span>
 </button>
 
-        <button type="button" id="toggleBtn" class="underline text-sm text-black/70 hover:text-white">Register</button>
+        <button type="button" id="toggleBtn" class="underline text-sm text-black/90 hover:text-white">Register</button>
         
       </div>
     </form>
 
 <div class="flex justify-end mt-4">
-  <button id="closeModalBtn" class="px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white">Tutup</button>
+<button id="closeModalBtn" class="px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white flex items-center gap-2">
+  <i class="ri-close-line"></i> Tutup
+</button>
+
 </div>
 
   </div>
@@ -123,6 +160,48 @@
     border-color: #60a5fa;
     background-color: rgba(255 255 255 / 0.3);
   }
+
+  .drip-logo {
+  font-family: 'Nosifer', cursive;
+  font-size: 64px;
+  font-weight: bold;
+  color: #ffffff; /* putih susu */
+  position: relative;
+  display: inline-block;
+}
+
+.drip-logo::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 6px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 3px;
+  animation: drip 2s infinite ease-in-out;
+  transform: translateX(-50%);
+  opacity: 0.7;
+}
+
+@keyframes drip {
+  0% {
+    height: 0;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    height: 20px;
+    opacity: 0.7;
+    transform: translateX(-50%) translateY(10px);
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
 </style>
 
 <!-- Container Produk -->
@@ -182,12 +261,20 @@
   });
 
   // Update jumlah item di keranjang dari localStorage
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("checkout")) || [];
-    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-    if (cartCount) cartCount.textContent = totalQty;
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+  const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+  
+  if (cartCount) {
+    if (totalQty > 0) {
+      cartCount.textContent = totalQty;
+      cartCount.style.display = "flex";  // tampilkan badge
+    } else {
+      cartCount.style.display = "none";  // sembunyikan badge saat kosong
+    }
   }
-  updateCartCount();
+}
+updateCartCount();
 
   // Contoh deskripsi produk
   const descriptions = [
@@ -257,34 +344,6 @@
   container.appendChild(productDiv);
 }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const logo = document.getElementById('logo');
-    const text = 'dzulfikar';   // mulai dari huruf kecil d
-    const typingSpeed = 200;    // kecepatan ketik per huruf (ms)
-    const pauseAfterTyping = 5000; // tahan 5 detik setelah selesai
-
-    function typeWriter() {
-      let i = 0;
-      logo.textContent = '';
-
-      function type() {
-        if (i < text.length) {
-          logo.textContent += text.charAt(i);
-          i++;
-          setTimeout(type, typingSpeed);
-        } else {
-          setTimeout(() => {
-            logo.textContent = '';
-            typeWriter();
-          }, pauseAfterTyping);
-        }
-      }
-
-      type();
-    }
-
-    typeWriter();
-  });
 
 
 </script>
