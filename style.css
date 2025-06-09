@@ -1,0 +1,135 @@
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #1a1a1a;
+  }
+
+  nav {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+  }
+
+  .logo-font {
+    font-family: "Nosifer", sans-serif;
+    color: #FF1A1A; /* warna merah darah terang */
+    text-shadow: none;
+    font-size: 5vw;
+  }
+
+  .glow {
+    text-shadow: 0 0 1px #0f0, 0 0 4px #fff, 0 0 7px #0f0;
+  }
+
+  .neon-glow {
+    animation: neonPulse 8s infinite;
+  }
+
+  .instagram-icon i {
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    text-shadow: 0 0 3px #fff, 0 0 5px #fff, 0 0 3px #feda75,
+                 0 0 6px #fa7e1e, 0 0 4px #d62976,
+                 0 0 1px #962fbf, 0 0 0px #4f5bd5;
+    animation: blinkOnOff 4s infinite step-start;
+  }
+
+  @keyframes blinkOnOff {
+    0%, 49.9% { opacity: 1; }
+    50%, 100% { opacity: 0; text-shadow: none; }
+  }
+
+  #userBtn i {
+    color: #229ED9; /* biru Telegram */
+  }
+
+  #cart-count {
+    display: none;
+  }
+
+  .glow-super-bright {
+    color: #ffffff;
+    text-shadow:
+      0 0 8px #ffffff,
+      0 0 16px #ffffff,
+      0 0 24px #ffffff,
+      0 0 32px #ffffff,
+      0 0 40px #ffffff,
+      0 0 50px #ffffff;
+  }
+
+  .input-white-glow {
+    color: #f5f5f5; /* putih susu */
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.8),
+      0 0 10px rgba(255, 255, 255, 0.6);
+  }
+
+  .input-container {
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    .input-container {
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+  }
+
+  #loginModal {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  input:focus {
+    border-color: #60a5fa;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .drip-logo {
+    font-family: 'Nosifer', cursive;
+    font-size: 64px;
+    font-weight: bold;
+    color: #ffffff; /* putih susu */
+    position: relative;
+    display: inline-block;
+  }
+
+  .drip-logo::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 6px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 3px;
+    animation: drip 2s infinite ease-in-out;
+    transform: translateX(-50%);
+    opacity: 0.7;
+  }
+
+  @keyframes drip {
+    0% {
+      height: 0;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      height: 20px;
+      opacity: 0.7;
+      transform: translateX(-50%) translateY(10px);
+    }
+    100% {
+      height: 0;
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+  }
