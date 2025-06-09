@@ -1,135 +1,359 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>meja ruang tamu</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
   <style>
-      @keyframes belokKiriLoop {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-6px); }
-    100% { transform: translateX(0); }
-  }
+.logo-font {
+  font-family: "Nosifer", sans-serif;
+  color: #FF1A1A; /* warna merah darah terang */
+  text-shadow: none;
+  font-size: 5vw;
+}
 
-  .belok-loop {
-    animation: belokKiriLoop 1.2s ease-in-out infinite;
-  }
-    .belok-loop {
-      animation: belokKiriLoop 0.5s ease-in-out infinite;
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
     }
+    .glow {
+      text-shadow: 0 0 1px #0f0, 0 0 4px #fff, 0 0 7px #0f0;
+    }
+
+    .neon-glow { animation: neonPulse 8s infinite; }
+    .instagram-icon i {
+      background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      text-shadow: 0 0 3px #fff, 0 0 5px #fff, 0 0 3px #feda75,
+                   0 0 6px #fa7e1e, 0 0 4px #d62976,
+                   0 0 1px #962fbf, 0 0 0px #4f5bd5;
+      animation: blinkOnOff 4s infinite step-start;
+    }
+    @keyframes blinkOnOff {
+      0%, 49.9% { opacity: 1; }
+      50%, 100% { opacity: 0; text-shadow: none; }
+    }
+
+#userBtn i {
+  color: #229ED9; /* biru Telegram */
+}
+
+#cart-count {
+  display: none;
+}
+
+.glow-super-bright {
+  color: #ffffff;
+  text-shadow:
+    0 0 8px #ffffff,
+    0 0 16px #ffffff,
+    0 0 24px #ffffff,
+    0 0 32px #ffffff,
+    0 0 40px #ffffff,
+    0 0 50px #ffffff;
+}
+
+.input-white-glow {
+  color: #f5f5f5; /* putih susu */
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+
   </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
+<body class="bg-gray-100">
 
-<!-- Header -->
-<header class="bg-white p-4 shadow-md flex items-center justify-between">
-  <h1 class="text-xl font-bold">Checkout</h1>
-  <a href="index.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md shadow-md flex items-center gap-2">
-    <i class="ri-arrow-left-line text-xl belok-loop"></i>
-    <span>Kembali</span>
-  </a>
-</header>
-
-<!-- Konten lainnya... -->
-<main class="flex-1 p-4 space-y-4" id="checkout-list"></main>
-
-<section class="bg-white p-4 shadow-md rounded-t-xl">
-  <div class="flex justify-between text-lg font-semibold mb-4">
-    <span>Total</span>
-    <span id="total-price">Rp0</span>
+<!-- Navbar -->
+<nav class="text-white px-4 py-3 h-14 flex items-center justify-center sticky top-0 z-10 relative bg-black">
+  <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
+    <!-- Instagram paling kiri -->
+    <a href="https://instagram.com/rhanray_" target="_blank" class="text-3xl hover:text-gray-300 hover:scale-110 transition instagram-icon">
+      <i class="ri-instagram-line"></i>
+    </a>
+    <!-- WhatsApp di samping Instagram -->
+    <a href="https://wa.me/6282197770219" target="_blank" class="text-3xl hover:text-green-600 hover:scale-110 transition" style="color: #25D366;">
+      <i class="ri-whatsapp-line"></i>
+    </a>
+    <!-- User button di samping WhatsApp -->
+    <button id="userBtn" class="text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="User account">
+      <i class="ri-user-line"></i>
+    </button>
   </div>
-  <button id="pay-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full mb-14">
-    Bayar Sekarang
-  </button>
-</section>
+
+<div id="logo" class="logo-font neon-glow text-1xxl font-bold select-none ml-20">
+  dzulfikar
+</div>
+
+
+  <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
+    <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="Shopping cart">
+      <i class="ri-shopping-cart-line"></i>
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-blue-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
+    </a>
+  </div>
+</nav>
+
+
+<!-- Modal Login dan Register -->
+<div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
+  <div class="bg-black bg-opacity-30 backdrop-blur-lg border border-white/30 ring-1 ring-white/10 rounded-3xl p-8 w-full max-w-sm shadow-2xl text-white font-sans">
+    <h2 id="modalTitle" class="text-3xl font-semibold mb-6 text-center">Login</h2>
+
+    <form id="authForm" class="space-y-4">
+      <input type="text" id="username" placeholder="Username"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400" required />
+
+      <input type="email" id="email" placeholder="Email"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400 hidden" />
+
+      <input type="password" id="password" placeholder="Password"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400" required />
+
+      <input type="password" id="confirmPassword" placeholder="Confirm Password"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400 hidden" />
+
+      <div class="flex justify-between items-center">
+        <button type="submit" id="submitBtn"
+          class="px-6 py-3 rounded-xl bg-blue-600 bg-opacity-80 hover:bg-blue-700 transition font-semibold flex items-center justify-center gap-2 text-white">
+          <i class="ri-login-box-line"></i><span>Login</span>
+        </button>
+
+        <button type="button" id="toggleBtn"
+          class="underline text-sm text-white hover:text-blue-400 transition">Register</button>
+      </div>
+    </form>
+
+<div class="flex justify-end mt-4">
+<button id="closeModalBtn" class="px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white flex items-center gap-2">
+  <i class="ri-close-line"></i> Tutup
+</button>
+
+</div>
+
+  </div>
+</div>
+
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #1a1a1a;
+  }
+  #loginModal {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  input::placeholder {
+    color: rgba(255 255 255 / 0.6);
+  }
+  input:focus {
+    border-color: #60a5fa;
+    background-color: rgba(255 255 255 / 0.3);
+  }
+
+  .drip-logo {
+  font-family: 'Nosifer', cursive;
+  font-size: 64px;
+  font-weight: bold;
+  color: #ffffff; /* putih susu */
+  position: relative;
+  display: inline-block;
+}
+
+.drip-logo::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 6px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 3px;
+  animation: drip 2s infinite ease-in-out;
+  transform: translateX(-50%);
+  opacity: 0.7;
+}
+
+@keyframes drip {
+  0% {
+    height: 0;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    height: 20px;
+    opacity: 0.7;
+    transform: translateX(-50%) translateY(10px);
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+</style>
+
+<!-- Container Produk -->
+<div class="p-4">
+  <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</div>
 
 <script>
-  let cart = JSON.parse(localStorage.getItem('checkout')) || [];
-  const checkoutList = document.getElementById('checkout-list');
-  const totalPriceElement = document.getElementById('total-price');
+  const container = document.getElementById('product-container');
+  const cartCount = document.getElementById('cart-count');
 
-  function updateTotal() {
-    let total = 0;
-    cart.forEach(item => {
-      const price = parseInt(item.price.replace(/\D/g, '')) || 0;
-      total += price * (item.qty || 1);
-    });
-    totalPriceElement.textContent = `Rp${total.toLocaleString('id-ID')}`;
-  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginModal = document.getElementById('loginModal');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const modalTitle = document.getElementById('modalTitle');
+    const emailInput = document.getElementById('email');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const submitBtn = document.getElementById('submitBtn');
+    const userBtn = document.getElementById('userBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
 
-  function saveCart() {
-    localStorage.setItem('checkout', JSON.stringify(cart));
-    renderCart();
-  }
+    let isRegister = false;
 
-  function renderCart() {
-    checkoutList.innerHTML = '';
-    if (cart.length === 0) {
-      checkoutList.innerHTML = `<div class="text-center text-gray-500 mt-10">Keranjang kosong.</div>`;
-      totalPriceElement.textContent = 'Rp0';
-      return;
-    }
-
-    cart.forEach((item, index) => {
-      const div = document.createElement('div');
-      div.className = 'bg-white p-4 rounded-lg shadow flex items-center gap-4';
-
-      div.innerHTML = `
-        <img src="${item.image}" alt="${item.title}" class="w-20 h-20 object-cover rounded" />
-        <div class="flex-1">
-          <h3 class="text-md font-semibold">${item.title}</h3>
-          <p class="text-sm text-gray-500">${item.desc}</p>
-          <p class="text-orange-500 font-bold mt-1">${item.price}</p>
-          <div class="flex items-center gap-2 mt-2">
-            <button class="text-white bg-gray-400 hover:bg-gray-600 px-2 py-1 rounded" onclick="changeQty(${index}, -1)">-</button>
-            <span class="px-3">${item.qty || 1}</span>
-            <button class="text-white bg-gray-700 hover:bg-gray-900 px-2 py-1 rounded" onclick="changeQty(${index}, 1)">+</button>
-          </div>
-        </div>
-        <button onclick="removeItem(${index})" class="text-red-500 hover:text-red-700"><i class="ri-delete-bin-line text-xl"></i></button>
-      `;
-      checkoutList.appendChild(div);
+    // Toggle antara Login <-> Register dengan update ikon
+    toggleBtn?.addEventListener('click', () => {
+      isRegister = !isRegister;
+      modalTitle.textContent = isRegister ? 'Register' : 'Login';
+      emailInput.classList.toggle('hidden', !isRegister);
+      confirmPasswordInput.classList.toggle('hidden', !isRegister);
+      if (isRegister) {
+        submitBtn.innerHTML = `<i class="ri-user-add-line"></i><span>Register</span>`;
+        toggleBtn.textContent = 'Login';
+      } else {
+        submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
+        toggleBtn.textContent = 'Register';
+      }
     });
 
-    updateTotal();
-  }
-
-  function changeQty(index, delta) {
-    cart[index].qty = (cart[index].qty || 1) + delta;
-    if (cart[index].qty <= 0) {
-      cart.splice(index, 1);
-    }
-    saveCart();
-  }
-
-  function removeItem(index) {
-    cart.splice(index, 1);
-    saveCart();
-  }
-
-  document.getElementById("pay-btn").addEventListener("click", () => {
-    if (cart.length === 0) {
-      alert("Keranjang kosong.");
-      return;
-    }
-
-    const history = JSON.parse(localStorage.getItem("history")) || [];
-    history.push({
-      items: cart,
-      total: totalPriceElement.textContent,
-      time: new Date().toLocaleString(),
-      status: "Belum Dibayar"
+    // Buka modal login/register
+    userBtn?.addEventListener('click', () => {
+      loginModal?.classList.remove('hidden');
+      loginModal?.classList.add('flex');
     });
 
-    localStorage.setItem("history", JSON.stringify(history));
-    localStorage.removeItem("checkout");
-    alert("Pembayaran berhasil. Terima kasih!");
-    window.location.href = "index.html";
+    // Tutup modal login/register
+    closeModalBtn?.addEventListener('click', () => {
+      loginModal?.classList.add('hidden');
+      loginModal?.classList.remove('flex');
+      // Reset ke login
+      isRegister = false;
+      modalTitle.textContent = 'Login';
+      emailInput.classList.add('hidden');
+      confirmPasswordInput.classList.add('hidden');
+      submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
+      toggleBtn.textContent = 'Register';
+    });
   });
 
-  renderCart();
+  // Update jumlah item di keranjang dari localStorage
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+  const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+  
+  if (cartCount) {
+    if (totalQty > 0) {
+      cartCount.textContent = totalQty;
+      cartCount.style.display = "flex";  // tampilkan badge
+    } else {
+      cartCount.style.display = "none";  // sembunyikan badge saat kosong
+    }
+  }
+}
+updateCartCount();
+
+  // Contoh deskripsi produk
+  const descriptions = [
+    "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
+    "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
+    "A premium hoodie illuminated by a mysterious, radiant eye motif.",
+    "Custom-crafted masterpiece showcasing a third eye skull design of supreme artistry.",
+  ];
+
+  // Render produk secara dinamis
+ for (let i = 1; i <= 12; i++) {
+  const productDiv = document.createElement('div');
+  productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
+
+  const img = document.createElement('img');
+  img.src = `/images/${i}.jpg`;
+  img.alt = `Produk ${i}`;
+  img.className = 'w-full h-[280px] object-contain rounded-md mb-4 bg-white';
+
+  const title = document.createElement('h3');
+  title.className = 'text-lg font-semibold mb-1';
+  title.textContent = `Produk ${i}`;
+
+  const desc = document.createElement('p');
+  desc.className = 'text-gray-600 text-sm mb-2';
+  desc.textContent = descriptions[(i - 1) % descriptions.length];
+
+  const price = document.createElement('div');
+  price.className = 'text-black-500 font-bold mb-4';
+  price.textContent = 'Rp250.000';
+
+  const button = document.createElement('button');
+  button.className = 'mt-auto bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded transition flex items-center justify-center gap-2 relative';
+  button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Tambah ke Keranjang</span>';
+
+  button.addEventListener('click', () => {
+    const item = {
+      title: title.textContent,
+      desc: desc.textContent,
+      price: price.textContent,
+      image: img.src,
+      qty: 1
+    };
+
+    const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+    const existing = cart.find(p => p.title === item.title);
+
+    if (existing) {
+      existing.qty = (existing.qty || 1) + 1;
+    } else {
+      cart.push(item);
+    }
+
+    localStorage.setItem("checkout", JSON.stringify(cart));
+    updateCartCount();
+  });
+
+  
+
+  // Append elemen sesuai urutan tampilannya:
+  productDiv.appendChild(img);
+  productDiv.appendChild(title);
+  productDiv.appendChild(desc);
+  productDiv.appendChild(price);
+  productDiv.appendChild(button);
+
+  container.appendChild(productDiv);
+}
+
+
+
 </script>
 
 </body>
