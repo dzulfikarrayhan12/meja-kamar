@@ -134,7 +134,6 @@
     }
   }
 
-
   #submitBtn {
   background-color: #229ED9; /* biru terang (Tailwind bg-blue-400) */
   color: white;
@@ -161,3 +160,17 @@
   transition: background-color 0.3s ease;
   border: none;
 }
+
+.btn-kembali {
+  background-color: #E50914; /* Merah tua ala Netflix */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
