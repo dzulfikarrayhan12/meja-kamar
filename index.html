@@ -44,9 +44,9 @@
 <!-- Modal Login dan Register -->
 
 
-<div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
+<div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-20 backdrop-blur-sm z-50">
   <div class="bg-black bg-opacity-20 backdrop-blur-lg border border-white/90 ring-1 ring-white/90 rounded-3xl p-8 w-full max-w-sm shadow-2xl text-white font-sans">
-    <h2 id="modalTitle" class="text-3xl font-semibold mb-6 text-center">Login</h2>
+    <h2 id="modalTitle" class="text-3xl font-semibold mb-9 text-center">Login</h2>
 
     <form id="authForm" class="space-y-4">
       <!-- Username -->
@@ -64,17 +64,17 @@
 
       <!-- Email -->
 
+<div class="relative input-container hidden" id="emailContainer">
+  <i class="ri-mail-line absolute left-8 top-1/2 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
+  <input
+    type="email"
+    id="email"
+    placeholder="Email"
+    class="w-full pl-12 pr-4 py-3 rounded-xl mb-13 bg-black bg-opacity-20 border border-white/30
+           text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400"
+  />
+</div>
 
-      <div class="relative input-container">
-        <i class="ri-mail-line absolute left-8 top-1/2 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          class="w-full pl-12 pr-4 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30
-                 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400"
-        />
-      </div>
 
 
       <!-- Password -->
@@ -149,60 +149,81 @@
   const container = document.getElementById('product-container');
   const cartCount = document.getElementById('cart-count');
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const loginModal = document.getElementById('loginModal');
-    const toggleBtn = document.getElementById('toggleBtn');
-    const modalTitle = document.getElementById('modalTitle');
-    const emailInput = document.getElementById('email');
-    const confirmPasswordInput = document.getElementById('confirmPassword');
-    const submitBtn = document.getElementById('submitBtn');
-    const userBtn = document.getElementById('userBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
+ document.addEventListener("DOMContentLoaded", function () {
+  const loginModal = document.getElementById('loginModal');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const emailContainer = document.getElementById('emailContainer'); // ✅ Ditambahkan
+  const emailInput = document.getElementById('email');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+  const submitBtn = document.getElementById('submitBtn');
+  const userBtn = document.getElementById('userBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
 
-    let isRegister = false;
+  let isRegister = false;
 
-    // Toggle antara Login <-> Register dengan update ikon
+  toggleBtn?.addEventListener('click', () => {
+    isRegister = !isRegister;
+    modalTitle.textContent = isRegister ? 'Register' : 'Login';
 
+    // Tampilkan/ sembunyikan input email & confirm password
+    emailContainer.classList.toggle('hidden', !isRegister);
+    confirmPasswordInput.classList.toggle('hidden', !isRegister);
 
- toggleBtn?.addEventListener('click', () => {
-  isRegister = !isRegister;
-  modalTitle.textContent = isRegister ? 'Register' : 'Login';
-  // emailInput selalu muncul, jangan sembunyikan
-  // emailInput.classList.toggle('hidden', !isRegister);
-  confirmPasswordInput.classList.toggle('hidden', !isRegister);
-  if (isRegister) {
-    submitBtn.innerHTML = `<i class="ri-user-add-line"></i><span>Register</span>`;
-    toggleBtn.textContent = 'Login';
-  } else {
-    submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
+    // Ubah ikon & teks tombol submit
+    submitBtn.querySelector('i').className = isRegister ? 'ri-user-add-line' : 'ri-login-box-line';
+    submitBtn.querySelector('span').textContent = isRegister ? 'Register' : 'Login';
+
+    // Ubah teks tombol toggle
+    toggleBtn.textContent = isRegister ? 'Login' : 'Register';
+  });
+
+  userBtn?.addEventListener('click', () => {
+    loginModal?.classList.remove('hidden');
+    loginModal?.classList.add('flex');
+  });
+
+  closeModalBtn?.addEventListener('click', () => {
+    loginModal?.classList.add('hidden');
+    loginModal?.classList.remove('flex');
+
+    // Reset ke login state
+    isRegister = false;
+    modalTitle.textContent = 'Login';
+    emailContainer.classList.add('hidden');
+    confirmPasswordInput.classList.add('hidden');
+    submitBtn.querySelector('i').className = 'ri-login-box-line';
+    submitBtn.querySelector('span').textContent = 'Login';
     toggleBtn.textContent = 'Register';
-  }
+  });
 });
 
+ const modalTitle = document.getElementById('modalTitle');
+  const emailField = document.getElementById('email');
+  const emailContainer = emailField.parentElement;
+  const toggleBtn = document.getElementById('toggleBtn');
 
-    // Buka modal login/register
+  let isLogin = true;
 
+  toggleBtn.addEventListener('click', () => {
+    isLogin = !isLogin;
 
-    userBtn?.addEventListener('click', () => {
-      loginModal?.classList.remove('hidden');
-      loginModal?.classList.add('flex');
-    });
-
-    // Tutup modal login/register
-
-
-    closeModalBtn?.addEventListener('click', () => {
-      loginModal?.classList.add('hidden');
-      loginModal?.classList.remove('flex');
-      // Reset ke login
-      isRegister = false;
+    if (isLogin) {
       modalTitle.textContent = 'Login';
-      // emailInput.classList.add('hidden');
-      confirmPasswordInput.classList.add('hidden');
-      submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
+      emailContainer.classList.add('hidden');
       toggleBtn.textContent = 'Register';
-    });
+      emailField.required = false;
+    } else {
+      modalTitle.textContent = 'Register';
+      emailContainer.classList.remove('hidden');
+      toggleBtn.textContent = 'Login';
+      emailField.required = true;
+    }
   });
+
+  // Sembunyikan email saat awal (login)
+  emailContainer.classList.add('hidden');
+  emailField.required = false;
 
   // Update jumlah item di keranjang dari localStorage
 
