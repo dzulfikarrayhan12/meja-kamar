@@ -3,75 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>dzulfikar</title>
+  <title>meja ruang tamu</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
-  <style>
-.logo-font {
-  font-family: "Nosifer", sans-serif;
-  color: #FF1A1A; /* warna merah darah terang */
-  text-shadow: none;
-  font-size: 5vw;
-}
-
-
-    nav {
-      background-color: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
-    }
-    .glow {
-      text-shadow: 0 0 1px #0f0, 0 0 4px #fff, 0 0 7px #0f0;
-    }
-
-    .neon-glow { animation: neonPulse 8s infinite; }
-    .instagram-icon i {
-      background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-      text-shadow: 0 0 3px #fff, 0 0 5px #fff, 0 0 3px #feda75,
-                   0 0 6px #fa7e1e, 0 0 4px #d62976,
-                   0 0 1px #962fbf, 0 0 0px #4f5bd5;
-      animation: blinkOnOff 4s infinite step-start;
-    }
-    @keyframes blinkOnOff {
-      0%, 49.9% { opacity: 1; }
-      50%, 100% { opacity: 0; text-shadow: none; }
-    }
-
-#userBtn i {
-  color: #229ED9; /* biru Telegram */
-}
-
-#cart-count {
-  display: none;
-}
-
-.glow-super-bright {
-  color: #ffffff;
-  text-shadow:
-    0 0 8px #ffffff,
-    0 0 16px #ffffff,
-    0 0 24px #ffffff,
-    0 0 32px #ffffff,
-    0 0 40px #ffffff,
-    0 0 50px #ffffff;
-}
-
-.input-white-glow {
-  color: #f5f5f5; /* putih susu */
-  text-shadow:
-    0 0 4px rgba(255, 255, 255, 0.8),
-    0 0 10px rgba(255, 255, 255, 0.6);
-}
-
-
-  </style>
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100">
+
+<body class="bg-blue-100">
 
 <!-- Navbar -->
 <nav class="text-white px-4 py-3 h-14 flex items-center justify-center sticky top-0 z-10 relative bg-black">
@@ -80,7 +21,6 @@
     <a href="https://instagram.com/rhanray_" target="_blank" class="text-3xl hover:text-gray-300 hover:scale-110 transition instagram-icon">
       <i class="ri-instagram-line"></i>
     </a>
-    <!-- WhatsApp di samping Instagram -->
     <a href="https://wa.me/6282197770219" target="_blank" class="text-3xl hover:text-green-600 hover:scale-110 transition" style="color: #25D366;">
       <i class="ri-whatsapp-line"></i>
     </a>
@@ -89,12 +29,9 @@
       <i class="ri-user-line"></i>
     </button>
   </div>
-
 <div id="logo" class="logo-font neon-glow text-1xxl font-bold select-none ml-20">
   dzulfikar
 </div>
-
-
   <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
     <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="Shopping cart">
       <i class="ri-shopping-cart-line"></i>
@@ -105,132 +42,94 @@
 
 
 <!-- Modal Login dan Register -->
+
+
 <div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
-  <div class="bg-black bg-opacity-30 backdrop-blur-lg border border-white/30 ring-1 ring-white/10 rounded-3xl p-8 w-full max-w-sm shadow-2xl text-white font-sans">
+  <div class="bg-black bg-opacity-20 backdrop-blur-lg border border-white/90 ring-1 ring-white/90 rounded-3xl p-8 w-full max-w-sm shadow-2xl text-white font-sans">
     <h2 id="modalTitle" class="text-3xl font-semibold mb-6 text-center">Login</h2>
 
     <form id="authForm" class="space-y-4">
-      
       <!-- Username -->
-      <div class="relative">
-        <i class="ri-user-line absolute left-4 top-1/2 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
-        <input type="text" id="username" placeholder="Username"
+      <div class="relative input-container">
+        <i class="ri-user-line absolute left-8 top-1/2 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
           class="w-full pl-12 pr-4 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
-          text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
+                 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400"
+          required
+        />
       </div>
 
-      <!-- Email (hidden by default) -->
- <!-- Email -->
+      <!-- Email -->
+
+
       <div class="relative input-container">
-        <i class="ri-mail-line absolute left-4 top-7 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
+        <i class="ri-mail-line absolute left-8 top-1/2 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
         <input
           type="email"
           id="email"
           placeholder="Email"
-          class="w-full pl-12 pr-12 mb-6 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30
+          class="w-full pl-12 pr-4 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30
                  text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400"
         />
       </div>
+
+
       <!-- Password -->
-      <div class="relative">
-        <i class="ri-lock-line absolute left-4 top-1/2 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
-        <input type="password" id="password" placeholder="Password"
+
+
+      <div class="relative input-container">
+        <i class="ri-lock-line absolute left-8 top-1/2 -translate-y-1/2 text-white/70 text-xl pointer-events-none"></i>
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
           class="w-full pl-12 pr-12 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
-          text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
-        <button type="button" id="togglePassword" 
-          class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white focus:outline-none">
+                 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400"
+          required
+        />
+        <button
+          type="button"
+          id="togglePassword"
+          class="absolute right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white focus:outline-none"
+          aria-label="Toggle Password Visibility"
+        >
           <i id="eyeIcon" class="ri-eye-line text-xl"></i>
         </button>
-      </div>
+</div>
 
-      <!-- Confirm Password (hidden by default) -->
-      <input type="password" id="confirmPassword" placeholder="Confirm Password"
-        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
-        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
 
-      <div class="flex justify-between items-center">
-        <button type="submit" id="submitBtn"
-          class="px-6 py-3 rounded-xl bg-blue-600 bg-opacity-80 hover:bg-blue-700 transition font-semibold flex items-center justify-center gap-2 text-white">
-          <i class="ri-login-box-line"></i><span>Login</span>
-        </button>
 
+<div class="flex justify-between items-center">
+  <button
+    type="submit"
+    id="submitBtn"
+    class="px-6 py-3 rounded-xl bg-blue-600 bg-opacity-80 hover:bg-blue-700 transition font-semibold flex items-center justify-center gap-2 text-white"
+  >
+    <i class="ri-login-box-line"></i><span>Login</span>
+  </button>
         <button type="button" id="toggleBtn"
           class="underline text-sm text-white hover:text-blue-400 transition">Register</button>
       </div>
     </form>
 
-    <div class="flex justify-end mt-4">
-      <button id="closeModalBtn" class="px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white flex items-center gap-2">
-        <i class="ri-close-line"></i> Tutup
-      </button>
-
+<div class="mt-4">
+  <button
+    id="closeModalBtn"
+    class="w-full px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white flex items-center justify-center gap-2"
+  >
+    <i class="ri-close-line"></i> Tutup
+  </button>
 </div>
 
   </div>
 </div>
 
-<style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    background: #1a1a1a;
-  }
-  #loginModal {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-  input::placeholder {
-    color: rgba(255 255 255 / 0.6);
-  }
-  input:focus {
-    border-color: #60a5fa;
-    background-color: rgba(255 255 255 / 0.3);
-  }
-
-  .drip-logo {
-  font-family: 'Nosifer', cursive;
-  font-size: 64px;
-  font-weight: bold;
-  color: #ffffff; /* putih susu */
-  position: relative;
-  display: inline-block;
-}
-
-.drip-logo::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  width: 6px;
-  height: 20px;
-  background: #ffffff;
-  border-radius: 3px;
-  animation: drip 2s infinite ease-in-out;
-  transform: translateX(-50%);
-  opacity: 0.7;
-}
-
-@keyframes drip {
-  0% {
-    height: 0;
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    height: 20px;
-    opacity: 0.7;
-    transform: translateX(-50%) translateY(10px);
-  }
-  100% {
-    height: 0;
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-  }
-}
-
-</style>
-
 <!-- Container Produk -->
+
+
 <div class="p-4">
   <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </div>
@@ -263,34 +162,42 @@
     let isRegister = false;
 
     // Toggle antara Login <-> Register dengan update ikon
-    toggleBtn?.addEventListener('click', () => {
-      isRegister = !isRegister;
-      modalTitle.textContent = isRegister ? 'Register' : 'Login';
-      emailInput.classList.toggle('hidden', !isRegister);
-      confirmPasswordInput.classList.toggle('hidden', !isRegister);
-      if (isRegister) {
-        submitBtn.innerHTML = `<i class="ri-user-add-line"></i><span>Register</span>`;
-        toggleBtn.textContent = 'Login';
-      } else {
-        submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
-        toggleBtn.textContent = 'Register';
-      }
-    });
+
+
+ toggleBtn?.addEventListener('click', () => {
+  isRegister = !isRegister;
+  modalTitle.textContent = isRegister ? 'Register' : 'Login';
+  // emailInput selalu muncul, jangan sembunyikan
+  // emailInput.classList.toggle('hidden', !isRegister);
+  confirmPasswordInput.classList.toggle('hidden', !isRegister);
+  if (isRegister) {
+    submitBtn.innerHTML = `<i class="ri-user-add-line"></i><span>Register</span>`;
+    toggleBtn.textContent = 'Login';
+  } else {
+    submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
+    toggleBtn.textContent = 'Register';
+  }
+});
+
 
     // Buka modal login/register
+
+
     userBtn?.addEventListener('click', () => {
       loginModal?.classList.remove('hidden');
       loginModal?.classList.add('flex');
     });
 
     // Tutup modal login/register
+
+
     closeModalBtn?.addEventListener('click', () => {
       loginModal?.classList.add('hidden');
       loginModal?.classList.remove('flex');
       // Reset ke login
       isRegister = false;
       modalTitle.textContent = 'Login';
-      emailInput.classList.add('hidden');
+      // emailInput.classList.add('hidden');
       confirmPasswordInput.classList.add('hidden');
       submitBtn.innerHTML = `<i class="ri-login-box-line"></i><span>Login</span>`;
       toggleBtn.textContent = 'Register';
@@ -298,6 +205,8 @@
   });
 
   // Update jumlah item di keranjang dari localStorage
+
+
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("checkout")) || [];
   const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
@@ -314,6 +223,8 @@ function updateCartCount() {
 updateCartCount();
 
   // Contoh deskripsi produk
+
+
   const descriptions = [
     "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
     "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
@@ -322,6 +233,8 @@ updateCartCount();
   ];
 
   // Render produk secara dinamis
+
+
  for (let i = 1; i <= 12; i++) {
   const productDiv = document.createElement('div');
   productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
@@ -369,21 +282,14 @@ updateCartCount();
     updateCartCount();
   });
 
-  
-
   // Append elemen sesuai urutan tampilannya:
   productDiv.appendChild(img);
   productDiv.appendChild(title);
   productDiv.appendChild(desc);
   productDiv.appendChild(price);
   productDiv.appendChild(button);
-
   container.appendChild(productDiv);
 }
-
-
-
 </script>
-
 </body>
 </html>
