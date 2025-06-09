@@ -133,3 +133,31 @@
       transform: translateX(-50%) translateY(20px);
     }
   }
+
+
+  #submitBtn {
+  background-color: #229ED9; /* biru terang (Tailwind bg-blue-400) */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+#closeModalBtn {
+  background-color: #8B0000; /* Merah Netflix */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+  border: none;
+}
