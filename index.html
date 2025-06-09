@@ -106,30 +106,38 @@
 
 <!-- Modal Login dan Register -->
 <div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
-  <div class="bg-white bg-opacity-20 backdrop-blur-md border border-white/30 rounded-3xl p-8 w-full max-w-sm shadow-lg text-blue font-sans">
+  <div class="bg-black bg-opacity-50 backdrop-blur-md border border-white/20 rounded-3xl p-8 w-full max-w-sm shadow-2xl text-white font-sans">
     <h2 id="modalTitle" class="text-3xl font-semibold mb-6 text-center">Login</h2>
 
     <form id="authForm" class="space-y-4">
- <input type="text" id="username" placeholder="Username"
-  class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 
-  text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
-  focus:border-blue-400" required />
+      <input type="text" id="username" placeholder="Username"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400" required />
 
+      <input type="email" id="email" placeholder="Email"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400 hidden" />
 
-      <input type="email" id="email" placeholder="Email" class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
+      <input type="password" id="password" placeholder="Password"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400" required />
 
-      <input type="password" id="password" placeholder="Password" class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400" required />
-
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-15 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 focus:border-blue-400 hidden" />
+      <input type="password" id="confirmPassword" placeholder="Confirm Password"
+        class="w-full px-5 py-3 rounded-xl bg-black bg-opacity-20 border border-white/30 
+        text-white placeholder-white/60 focus:outline-none focus:bg-opacity-30 
+        focus:border-blue-400 hidden" />
 
       <div class="flex justify-between items-center">
-     <button type="submit" id="submitBtn" 
-  class="px-6 py-3 rounded-xl bg-blue-600 bg-opacity-80 hover:bg-blue-700 transition font-semibold flex items-center justify-center gap-2 text-white">
-  <i class="ri-login-box-line"></i><span>Login</span>
-</button>
+        <button type="submit" id="submitBtn"
+          class="px-6 py-3 rounded-xl bg-blue-600 bg-opacity-80 hover:bg-blue-700 transition font-semibold flex items-center justify-center gap-2 text-white">
+          <i class="ri-login-box-line"></i><span>Login</span>
+        </button>
 
-        <button type="button" id="toggleBtn" class="underline text-sm text-black/90 hover:text-white">Register</button>
-        
+        <button type="button" id="toggleBtn"
+          class="underline text-sm text-white hover:text-blue-400 transition">Register</button>
       </div>
     </form>
 
