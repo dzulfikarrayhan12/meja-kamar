@@ -73,67 +73,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateCartCount();
 
-  const descriptions = [
-    "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
-    "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
-    "A premium hoodie illuminated by a mysterious, radiant eye motif.",
-    "Custom-crafted masterpiece showcasing a third eye skull design of supreme artistry.",
-  ];
+ const descriptions = [
+  "An exclusive dark-themed hoodie boasting a majestic scorpion emblem at its core.",
+  "A luxurious hoodie adorned with an intricately detailed spider masterpiece.",
+  "A premium hoodie illuminated by a mysterious, radiant eye motif.",
+  "Custom-crafted masterpiece showcasing a third eye skull design of supreme artistry.",
+];
 
-  for (let i = 1; i <= 12; i++) {
-    const productDiv = document.createElement('div');
-    productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
+for (let i = 1; i <= 18; i++) {  // Ubah batasnya jadi 200
+  const productDiv = document.createElement('div');
+  productDiv.className = 'bg-white p-4 rounded-lg shadow flex flex-col';
 
-    const img = document.createElement('img');
-    img.src = `images/${i}.jpg`;
-    img.alt = `Produk ${i}`;
-    img.className = 'w-full h-[280px] object-contain rounded-md mb-4 bg-white';
+  const img = document.createElement('img');
+  img.src = `images/${i}.jpg`;  // Pastikan kamu punya gambar sampai images/200.jpg, kalau tidak akan error gambar
+  img.alt = `Produk ${i}`;
+  img.className = 'w-full h-[280px] object-contain rounded-md mb-4 bg-white';
 
-    const title = document.createElement('h3');
-    title.className = 'text-lg font-semibold mb-1';
-    title.textContent = `Produk ${i}`;
+  const title = document.createElement('h3');
+  title.className = 'text-lg font-semibold mb-1';
+  title.textContent = `Produk ${i}`;
 
-    const desc = document.createElement('p');
-    desc.className = 'text-gray-600 text-sm mb-2';
-    desc.textContent = descriptions[(i - 1) % descriptions.length];
+  const desc = document.createElement('p');
+  desc.className = 'text-gray-600 text-sm mb-2';
+  desc.textContent = descriptions[(i - 1) % descriptions.length]; // loop deskripsi siklik
 
-    const price = document.createElement('div');
-    price.className = 'text-black-500 font-bold mb-4';
-    price.textContent = 'Rp250.000';
+  const price = document.createElement('div');
+  price.className = 'text-black-500 font-bold mb-4';
+  price.textContent = 'Rp250.000';
 
-    const button = document.createElement('button');
-    button.className = 'mt-auto bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded transition flex items-center justify-center gap-2 relative';
-    button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Tambah ke Keranjang</span>';
+  const button = document.createElement('button');
+  button.className = 'mt-auto bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded transition flex items-center justify-center gap-2 relative';
+  button.innerHTML = '<i class="ri-shopping-cart-line absolute left-4"></i><span>Tambah ke Keranjang</span>';
 
-    button.addEventListener('click', () => {
-      const item = {
-        title: title.textContent,
-        desc: desc.textContent,
-        price: price.textContent,
-        image: img.src,
-        qty: 1
-      };
+  button.addEventListener('click', () => {
+    const item = {
+      title: title.textContent,
+      desc: desc.textContent,
+      price: price.textContent,
+      image: img.src,
+      qty: 1
+    };
 
-      const cart = JSON.parse(localStorage.getItem("checkout")) || [];
-      const existing = cart.find(p => p.title === item.title);
+    const cart = JSON.parse(localStorage.getItem("checkout")) || [];
+    const existing = cart.find(p => p.title === item.title);
 
-      if (existing) {
-        existing.qty = (existing.qty || 1) + 1;
-      } else {
-        cart.push(item);
-      }
+    if (existing) {
+      existing.qty = (existing.qty || 1) + 1;
+    } else {
+      cart.push(item);
+    }
 
-      localStorage.setItem("checkout", JSON.stringify(cart));
-      updateCartCount();
-    });
+    localStorage.setItem("checkout", JSON.stringify(cart));
+    updateCartCount();
+  });
 
-    productDiv.appendChild(img);
-    productDiv.appendChild(title);
-    productDiv.appendChild(desc);
-    productDiv.appendChild(price);
-    productDiv.appendChild(button);
-    container?.appendChild(productDiv);
-  }
+  productDiv.appendChild(img);
+  productDiv.appendChild(title);
+  productDiv.appendChild(desc);
+  productDiv.appendChild(price);
+  productDiv.appendChild(button);
+  container?.appendChild(productDiv);
+}
 
   // ------------------------
   // CHECKOUT
@@ -240,3 +240,43 @@ document.addEventListener("DOMContentLoaded", function () {
   renderCart();
 });
 
+//routes
+
+ // ROUTING (SPA)
+  const route = (event) => {
+    event.preventDefault();
+    const path = event.target.getAttribute("href");
+    window.history.pushState({}, "", path);
+    handleLocation();
+  };
+
+  const routes = {
+    "/": "/pages/index.html",
+    "/checkout": "/pages/checkout.html",
+  };
+
+  const handleLocation = async () => {
+    const path = window.location.pathname;
+    const route = routes[path] || routes["/"];
+    try {
+      const html = await fetch(route).then((res) => res.text());
+      document.getElementById("main-page").innerHTML = html;
+      afterPageLoad(path);
+    } catch (err) {
+      console.error("Halaman tidak ditemukan.", err);
+    }
+  };
+
+  window.onpopstate = handleLocation;
+  window.route = route;
+
+  handleLocation();
+
+  function afterPageLoad(path) {
+    if (path === "/") renderProducts();
+    if (path === "/checkout") renderCart();
+  }
+
+  window.goBack = function () {
+    window.location.href = "index.html";
+  };
