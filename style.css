@@ -9,40 +9,150 @@
     backdrop-filter: blur(4px);
   }
 
-  .logo-font {
-    font-family: "Nosifer", sans-serif;
-    color: #E50914; /* warna merah darah terang */
+  .header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* agar checkout di kiri */
+  padding: 0.5rem 1rem;
+  background-color: #000; /* sesuaikan dengan tema */
+  height: 50px;
+  box-sizing: border-box;
+}
+
+/* Checkout di kiri */
+.checkout-glow-white-to-yellow {
+  font-weight: bold;
+  font-size: 35px;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+   font-family: "Creepster", system-ui;
+  display: inline-block;
+  white-space: nowrap;
+
+}
+
+/* Logo di tengah dengan posisi absolute */
+.logo {
+  font-weight: bold;
+  font-size: 9px;
+  color: #FF3B3B; /* merah terang agak soft */
+  padding: 0.5px 1px;
+  border-radius: 1px;
+  font-family: "Cinzel", serif;
+  position: absolute;
+  left: 60%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+
+}
+
+
+/* Tombol close di kanan */
+
+
+/* Styling judul */
+
+#pay-btn {
+  background-color: #000; /* Tailwind bg-green-500 */
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;     /* Tailwind py-2 px-6 */
+  border-radius: 0.375rem;    /* Tailwind rounded-md */
+  width: 100%;
+  margin-bottom: 3.5rem;      /* Tailwind mb-14 */
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+#pay-btn:hover {
+  background-color: #16a34a; /* Tailwind hover:bg-green-600 */
+}
+
+
+
+.ray-text, .han-text {
+  font-family: "Cinzel", serif;
+  font-size: 30px;
+  background: linear-gradient(
+    90deg,
+   #66bb6a,   /* hijau muda segar */
+    #2e7d32,   /* hijau tua */
+    #1b3d1b    /* hijau paling tua */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.8px white;
+
+  text-shadow:
+  0 0 3px #81c784,   /* hijau muda glow */
+    0 0 6px #2e7d32,   /* hijau tua glow */
+    0 0 10px #1b3d1b;  /* dasar gelap */
+}
+
+#han-part {
+  transition: opacity 0.4s ease;
+}
+
+#han-part.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+ 
+#userBtn i {
+  color: #ffffff; /* merah terang agak soft */
+}
+
+@keyframes neon-flicker {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #8B0000,
+      0 0 10px #FF0000,
+      0 0 20px #FF0000,
+      0 0 30px #FF4D4D,
+      0 0 40px #FF4D4D,
+      0 0 55px #FF6666,
+      0 0 75px #FF6666;
+    opacity: 1;
+  }
+
+  40% {
+    text-shadow:
+      0 0 3px #8B0000,
+      0 0 6px #FF0000,
+      0 0 12px #FF0000,
+      0 0 18px #FF4D4D,
+      0 0 24px #FF4D4D;
+    opacity: 0.8;
+  }
+
+  60% {
+    opacity: 0.2; /* seolah-olah kedip mati */
     text-shadow: none;
-    font-size: 5vw;
   }
 
-  .glow {
-    text-shadow: 0 0 1px #0f0, 0 0 4px #fff, 0 0 7px #0f0;
+  80% {
+    opacity: 1;
+    text-shadow:
+      0 0 5px #8B0000,
+      0 0 10px #FF0000,
+      0 0 20px #FF0000,
+      0 0 30px #FF4D4D,
+      0 0 40px #FF4D4D,
+      0 0 55px #FF6666,
+      0 0 75px #FF6666;
   }
+}
 
-  .neon-glow {
-    animation: neonPulse 8s infinite;
-  }
+.custom-color {
+  color: #8B0000;
+  animation: neon-flicker 2s infinite ease-in-out;
+}
 
-  .instagram-icon i {
-    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-      -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    text-shadow: 0 0 3px #fff, 0 0 5px #fff, 0 0 3px #feda75,
-                 0 0 6px #fa7e1e, 0 0 4px #d62976,
-                 0 0 1px #962fbf, 0 0 0px #4f5bd5;
-    animation: blinkOnOff 4s infinite step-start;
-  }
-
-  @keyframes blinkOnOff {
-    0%, 49.9% { opacity: 1; }
-    50%, 100% { opacity: 0; text-shadow: none; }
-  }
-
-  #userBtn i {
-    color: #229ED9; /* biru Telegram */
-  }
 
   #cart-count {
     display: none;
@@ -93,47 +203,7 @@
     background-color: rgba(255, 255, 255, 0.3);
   }
 
-  .drip-logo {
-    font-family: 'Nosifer', cursive;
-    font-size: 64px;
-    font-weight: bold;
-    color: #ffffff; /* putih susu */
-    position: relative;
-    display: inline-block;
-  }
-
-  .drip-logo::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 100%;
-    width: 6px;
-    height: 20px;
-    background: #ffffff;
-    border-radius: 3px;
-    animation: drip 2s infinite ease-in-out;
-    transform: translateX(-50%);
-    opacity: 0.7;
-  }
-
-  @keyframes drip {
-    0% {
-      height: 0;
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    50% {
-      height: 20px;
-      opacity: 0.7;
-      transform: translateX(-50%) translateY(10px);
-    }
-    100% {
-      height: 0;
-      opacity: 0;
-      transform: translateX(-50%) translateY(20px);
-    }
-  }
-
+ 
   #submitBtn {
   background-color: #229ED9; /* biru terang (Tailwind bg-blue-400) */
   color: white;
@@ -161,16 +231,124 @@
   border: none;
 }
 
-.btn-kembali {
-  background-color: #E50914; /* Merah tua ala Netflix */
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+.social-icons {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
+  gap: 29px;
+  margin-top: 15px;
 }
 
+/* Warna default untuk semua link sosial media */
+.social-icons a {
+  color: #eee;
+  margin: 0 15px;
+  font-size: 45px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* Warna khusus per media sosial */
+.social-icons a.facebook {
+  background-color: #1877F2; /* biru Facebook */
+  width: 50px;
+  height: 50px;
+  border-radius: 5%;        /* buat lingkaran sempurna */
+  color: white;              /* warna icon */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;           /* ukuran icon agar pas */
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  overflow: hidden;          /* cegah icon keluar */
+}
+
+
+.social-icons a.instagram {
+  background: radial-gradient(circle at 30% 107%, 
+    #feda75 0%, 
+    #fa7e1e 25%, 
+    #d62976 50%, 
+    #962fbf 75%, 
+    #4f5bd5 100%);
+  width: 50px;
+  height: 50px;
+  border-radius: 5%;         /* lingkaran sempurna */
+  color: white;               /* warna icon */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;            /* agar icon pas */
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.social-icons a.whatsapp {
+  background-color: #25D366;
+  width: 50px;
+  height: 50px;
+  border-radius: 70%;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+/* Hover masing-masing */
+.social-icons a.facebook:hover {
+  color: #145dbf; /* Biru gelap */
+}
+.social-icons a.instagram:hover {
+  color: #b2124a; /* Pink gelap */
+}
+.social-icons a.whatsapp:hover {
+  color: #1ebe56; /* Hijau gelap */
+}
+
+
+#form-title {
+   font-family: "Cinzel", serif;
+}
+
+
+
+.btn-close {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background-color: #000;/* merah yang serasi */
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px; /* bukan lingkaran, tapi sedikit rounded */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 36px;
+  height: 36px;
+  color: #ffffff; /* ikon tetap putih */
+  font-size: 41px;
+  border: none; /* hilangkan border default (kalau ada) */
+}
+
+.btn-close::before {
+  content: "";
+  position: absolute;
+  inset: 4px;             /* jarak dari semua sisi */
+  border-radius: 4px;     /* sudut kotak sedikit membulat */
+  border: 2px solid white;
+  pointer-events: none;
+}
+
+.btn-close i {
+  color: white; /* icon putih */
+}
