@@ -1,91 +1,142 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>dzulfikar</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-   <link rel="stylesheet" href="style.css" />
-  <style>
-      @keyframes belokKiriLoop {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-6px); }
-    100% { transform: translateX(0); }
-  }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
 
-  .belok-loop {
-    animation: belokKiriLoop 1s ease-in-out infinite;
-  }
-    .belok-loop {
-      animation: belokKiriLoop 1s ease-in-out infinite;
-    }
-  </style>
+
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
 
-<!-- Header -->
-<header class="bg-white p-4 shadow-md flex items-center justify-between">
-  <h1 class="text-xl font-bold">Checkout</h1>
-<a onclick="window.history.back()" class="btn-kembali cursor-pointer flex items-center gap-2">
-  <i class="ri-arrow-left-line text-xl belok-loop"></i>
-  <span>Kembali</span>
-</a>
-</header>
+<body class="bg-white-100">
 
-<!-- Konten lainnya... -->
-<main class="flex-1 p-4 space-y-4" id="checkout-list"></main>
+<!-- Navbar -->
+<nav class="relative text-white px-4 py-3 h-14 flex items-center justify-center bg-black sticky top-0 z-10">
 
-<section class="bg-white p-4 shadow-md rounded-t-xl">
-
-<!-- Form Pembayaran -->
-<div class="space-y-4 mb-6">
-
-  <!-- Nama -->
-  <div class="relative">
-    <i class="ri-user-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
-    <input type="text" id="name" placeholder="Nama Lengkap" required
-      class="w-full border pl-10 pr-4 py-2 rounded-md text-black font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400" />
+  <!-- User paling kiri -->
+  <div class="absolute left-4 top-1/2 -translate-y-1/2">
+    <button id="userBtn" class="text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="User account">
+      <i class="ri-user-line"></i>
+    </button>
   </div>
 
-  <!-- Alamat -->
-  <div class="relative">
-    <i class="ri-map-pin-line absolute left-3 top-3 text-gray-400 text-lg"></i>
-    <textarea id="address" rows="3" placeholder="Alamat Lengkap" required
-      class="w-full border pl-10 pr-4 py-2 rounded-md text-black font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"></textarea>
+  <!-- Logo di tengah -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+  <div id="logo" class="logo-font text-2xl font-bold select-none flex space-x-1">
+    <span class="ray-text">R</span>
+    <span class="ray-text">A</span>
+    <span class="ray-text">Y</span>
+      <span id="han-part">
+      <span class="han-text">H</span>
+      <span class="han-text">A</span>
+      <span class="han-text">N</span>
+    </span>
   </div>
+</div>
 
-  <!-- Nomor HP -->
-  <div class="relative">
-    <i class="ri-phone-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
-    <input type="tel" id="phone" placeholder="Nomor HP / WhatsApp" required
-      class="w-full border pl-10 pr-4 py-2 rounded-md text-black font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400" />
+ 
+
+  <!-- Keranjang di kanan -->
+  <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
+    <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="Shopping cart">
+      <i class="ri-shopping-cart-line"></i>
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
+    </a>
   </div>
-
-  <!-- Metode Pembayaran -->
-  <div class="relative">
-    <i class="ri-wallet-3-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
-    <select id="payment-method"
-      class="w-full border pl-10 pr-4 py-2 rounded-md text-black font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400">
-      <option value="">Pilih Metode Pembayaran</option>
-      <option value="transfer">Transfer Bank</option>
-      <option value="cod">Cash on Delivery</option>
-      <option value="qris">QRIS</option>
-    </select>
-  </div>
+</nav>
 
 
-  <div class="flex justify-between text-lg font-semibold mb-4">
-    <span>Total</span>
-    <span id="total-price">Rp0</span>
-  </div>
+<!-- Modal Login dan Register -->
 
-  <button id="pay-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full mb-14">
-    Bayar Sekarang
+
+<!-- MODAL LOGIN/REGISTER -->
+<div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm z-50">
+  <div class="bg-black bg-opacity-10 backdrop-blur-lg border border-black/10 ring-1 ring-white/90 rounded-3xl p-8 w-10px max-w-md shadow-4xl text-white font-sans">
+    
+<h2 id="form-title" class="text-3xl font-semibold mb-6 text-center text-red-600">DZULFIKAR</h2>
+
+    <p class="subtitle text-center mb-6">
+      <span id="typed"></span><span id="cursor">|</span>
+    </p>
+
+    <!-- FORM LOGIN -->
+    <form id="loginForm" class="active space-y-4" autocomplete="off" novalidate>
+      <div class="relative">
+        <i class="ri-user-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
+        <input type="text" name="username" placeholder="Username" class="pl-10 pr-4 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
+      </div>
+      <div class="relative">
+        <i class="ri-lock-password-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
+        <input type="password" id="loginPassword" name="password" placeholder="Password" class="pl-10 pr-10 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
+        <i class="ri-eye-line absolute right-4 top-1/2 -translate-y-1/2 text-white/60 cursor-pointer" onclick="togglePassword('loginPassword')"></i>
+      </div>
+      <button type="submit" class="w-full py-3 bg-blue-500 rounded-xl hover:bg-blue-600 transition">MASUK</button>
+
+
+    </form>
+
+    <!-- FORM REGISTER -->
+    <form id="registerForm" class="active" autocomplete="off" novalidate>
+      <div class="relative">
+        <i class="ri-user-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
+        <input type="text" name="username" placeholder="Username" class="pl-10 pr-4 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
+      </div>
+      <div class="relative">
+        <i class="ri-mail-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
+        <input type="email" name="email" placeholder="Email" class="pl-10 pr-4 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
+      </div>
+      <div class="relative">
+        <i class="ri-lock-password-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
+        <input type="password" id="regPassword" name="password" placeholder="Password" class="pl-10 pr-10 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
+        <i class="ri-eye-line absolute right-4 top-1/2 -translate-y-1/2 text-white/60 cursor-pointer" onclick="togglePassword('regPassword')"></i>
+      </div>
+      <div class="relative">
+        <i class="ri-lock-password-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
+        <input type="password" id="regConfirm" name="confirmPassword" placeholder="Confirm Password" class="pl-10 pr-10 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
+        <i class="ri-eye-line absolute right-4 top-1/2 -translate-y-1/2 text-white/60 cursor-pointer" onclick="togglePassword('regConfirm')"></i>
+      </div>
+      <button type="submit" class="w-full py-3 bg-green-500 rounded-xl hover:bg-green-600 transition">DAFTAR</button>
+  
+    </form>
+
+<div class="social-icons">
+  <a href="https://www.facebook.com/rayhanganteng.rayhanganteng.90?_rdc=1&_rdr" class="facebook" target="_blank" aria-label="Facebook">
+    <i class="ri-facebook-line"></i>
+  </a>
+  <a href="https://instagram.com/rhanray_" class="instagram" target="_blank" aria-label="Instagram">
+    <i class="ri-instagram-line"></i>
+  </a>
+  <a href="https://wa.me/6282197770219" class="whatsapp" target="_blank" aria-label="WhatsApp">
+    <i class="ri-whatsapp-line"></i>
+  </a>
+</div>
+
+<div class="mt-4">
+  <button
+    id="closeModalBtn"
+    class="w-full px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white flex items-center justify-center gap-2"
+  >
+    <i class="ri-close-line"></i> Tutup
   </button>
+</div>
+
+  </div>
+</div>
+
+<!-- Container Produk -->
 
 
-</section>
+<div class="p-4">
+  <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</div>
 
 <script src="script.js"></script>
 
