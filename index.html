@@ -3,142 +3,670 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>dzulfikar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+  <title>KIRA Store - Final Template</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Remix Icon -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
 
 
+  <style>
+    /* ===== Reset & Base ===== */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background: #f9f9f9;
+      overflow-x: hidden;
+    }
+
+    .banner-section {
+    background-image: url('images/banner.jpeg'); /* ganti dengan path gambarmu */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  /* overlay hitam transparan agar teks mudah dibaca */
+  .banner-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 0;
+  }
+
+  /* supaya teks di atas overlay */
+  .banner-section > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  #navbarlogo {
+  font-family: 'Cinzel Decorative', cursive;
+  font-weight: 700;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+}
+
+.banner-section h1,
+.banner-section h5,
+.banner-section p {
+  font-family: 'Cinzel', serif;
+}
+
+    /* Navbar */
+ nav.navbar {
+  background-color: rgba(40, 40, 40, 0.6); /* hitam pudar transparan */
+  color: white;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1002;
+
+  backdrop-filter: blur(10px); /* efek kaca buram */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* garis bawah halus */
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5); /* bayangan lembut */
+}
+
+
+    nav.navbar button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      position: relative;
+    }
+    nav.navbar #cart-toggle {
+      position: relative;
+    }
+    #cart-count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: #000;
+      color: white;
+      font-size: 0.75rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    /* Sidebar common */
+    .sidebar, .sidebar-cart {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      background: white;
+      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      z-index: 1100;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    .sidebar {
+      left: 0;
+      width: 250px;
+      transform: translateX(-100%);
+    }
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    .sidebar-nav a {
+      display: block;
+      padding: 0.7rem 0;
+      color: #222;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+      user-select: none;
+    }
+    .sidebar-nav a:hover {
+      background: #f0f0f0;
+    }
+
+    .sidebar-cart {
+      right: 0;
+      width: 320px;
+      transform: translateX(100%);
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar-cart.open {
+      transform: translateX(0);
+    }
+
+    /* Overlay with blur */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+      z-index: 1050;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 1rem auto;
+    }
+    .product-card {
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+    .product-image {
+      width: 100%;
+      border-radius: 4px;
+      object-fit: contain;
+      aspect-ratio: 4 / 3;
+      margin-bottom: 0.8rem;
+    }
+    .product-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #222;
+      text-align: center;
+    }
+  .product-rating {
+  color: #ffb400; /* warna kuning */
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-shadow:
+    0 0 5px #ffb400,
+    0 0 10px #ffb400,
+    0 0 6px #ffd54f,
+    0 0 10px #ffd54f;
+}
+
+    .product-price {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #000;
+      text-align: center;
+      margin-bottom: 0.6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+    .product-price img {
+      width: 20px;
+      vertical-align: middle;
+    }
+    .size-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 19px;
+      margin-bottom: 0.7rem;
+    }
+    .size-btn {
+      padding: 0.3rem 0.6rem;
+      border: 2.9px solid #222;
+      border-radius: 2px;
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
+    .size-btn:hover, .size-btn.active {
+      background-color: #222;
+      color: white;
+    }
+    .add-to-cart-btn {
+      background-color: #000;
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .add-to-cart-btn:hover {
+      background-color: #21867a;
+    }
+
+    /* Cart sidebar content */
+    .cart-summary {
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .cart-items {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid #eee;
+      padding: 0.5rem 0;
+      user-select: none;
+    }
+    .cart-item img {
+      width: 60px;
+      height: 45px;
+      object-fit: contain;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .cart-item-info {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .cart-item-size {
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: #555;
+    }
+    .cart-item-price {
+      font-weight: 700;
+      color: #2a9d8f;
+      margin-top: 0.2rem;
+      font-size: 1rem;
+    }
+    .cart-item-remove {
+      cursor: pointer;
+      color: #dc3545;
+      font-size: 1.25rem;
+      user-select: none;
+      transition: color 0.2s ease;
+    }
+    .cart-item-remove:hover {
+      color: #a8232d;
+    }
+    .cart-total {
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #222;
+    }
+    .checkout-btn {
+      width: 100%;
+      padding: 0.6rem 0;
+      background-color: #21867a;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .checkout-btn:hover {
+      background-color: #196658;
+    }
+
+  .payment-carousel {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scrollLoop 45s linear infinite;
+}
+
+.carousel-track img {
+  height: 50px;
+  margin: 0 1rem;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.carousel-track img:hover {
+  transform: scale(1.1);
+}
+
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+  </style>
 </head>
+<body>
 
-<body class="bg-white-100">
-
-<!-- Navbar -->
-<nav class="relative text-white px-4 py-3 h-14 flex items-center justify-center bg-black sticky top-0 z-10">
-
-  <!-- User paling kiri -->
-  <div class="absolute left-4 top-1/2 -translate-y-1/2">
-    <button id="userBtn" class="text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="User account">
-      <i class="ri-user-line"></i>
-    </button>
-  </div>
-
-  <!-- Logo di tengah -->
-<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-  <div id="logo" class="logo-font text-2xl font-bold select-none flex space-x-1">
-    <span class="ray-text">R</span>
-    <span class="ray-text">A</span>
-    <span class="ray-text">Y</span>
-      <span id="han-part">
-      <span class="han-text">H</span>
-      <span class="han-text">A</span>
-      <span class="han-text">N</span>
-    </span>
-  </div>
-</div>
-
- 
-
-  <!-- Keranjang di kanan -->
-  <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-4">
-    <a href="checkout.html" class="relative text-3xl hover:text-gray-300 hover:scale-110 transition" aria-label="Shopping cart">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <button id="menu-toggle" aria-label="Toggle menu"><i class="ri-menu-line"></i></button>
+    <div id="navbarlogo" style="color:white; font-weight: 700; font-size: 1.25rem;">DzULfikar</div>
+    <button id="cart-toggle" aria-label="Toggle cart" class="position-relative">
       <i class="ri-shopping-cart-line"></i>
-      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
-    </a>
+      <span id="cart-count">0</span>
+    </button>
+  </nav>
+
+  <!-- Sidebar Menu -->
+  <aside class="sidebar" id="sidebar-menu">
+    <nav class="sidebar-nav">
+      <a href="https://instagram.com/rhanray_" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://wa.me/6282197770219" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="#transaksi">Transaksi</a>
+      <a href="#about">Tentang Kami</a>
+    </nav>
+  </aside>
+
+  <!-- Sidebar Cart -->
+  <aside class="sidebar-cart" id="sidebar-cart">
+    <div class="cart-summary">Keranjang Kamu</div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-total" id="cart-total">Rp0</div>
+    <button class="checkout-btn" id="checkout-btn">Checkout</button>
+  </aside>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Welcome Section -->
+   <section class="banner-section" style="text-align:center; padding: 6rem 2rem; color: white;">
+  <h5>Selamat Datang di</h5>
+  <h1 style="font-weight: 800; font-size: 3rem; margin: 0.5rem 0;">DZULFIKAR</h1>
+  <p>Silahkan Belanja</p>
+</section>
+    <!-- Products -->
+    <section class="product-grid" id="product">
+      <!-- Example product card, duplicate/change as needed -->
+      <div class="product-card" data-id="hitam" data-name="Hitam" data-price="50000" data-image="/images/hitam.jpeg">
+        <img src="images/hitam.jpeg" alt="Kaos Hitam" class="product-image" />
+        <h3 class="product-name">BAJU HITAM</h3>
+        <div class="product-rating" title="Rating 5/5">
+          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+        </div>
+        <p class="product-price">
+          Rp50.000
+        </p>
+        <div class="size-buttons" role="group" aria-label="Pilih ukuran kaos hitam">
+          <button class="size-btn" type="button">M</button>
+          <button class="size-btn" type="button">L</button>
+          <button class="size-btn" type="button">XL</button>
+        </div>
+        <button class="add-to-cart-btn btn btn-success mt-auto" type="button" aria-label="Tambah Hitam ke keranjang">Tambah Keranjang</button>
+      </div>
+
+      <div class="product-card" data-id="putih" data-name="Putih" data-price="50000" data-image="/images/putih.jpeg">
+        <img src="images/putih.jpeg" alt="Kaos Putih" class="product-image" />
+        <h3 class="product-name">BAJU PUTIH</h3>
+        <div class="product-rating" title="Rating 5/5">
+          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+        </div>
+        <p class="product-price">
+          Rp50.000
+        </p>
+        <div class="size-buttons" role="group" aria-label="Pilih ukuran kaos putih">
+          <button class="size-btn" type="button">M</button>
+          <button class="size-btn" type="button">L</button>
+          <button class="size-btn" type="button">XL</button>
+        </div>
+        <button class="add-to-cart-btn btn btn-success mt-auto" type="button" aria-label="Tambah Putih ke keranjang">Tambah Keranjang</button>
+      </div>
+
+       <div class="product-card" data-id="merah" data-name="Merah" data-price="50000" data-image="/images/merah.jpeg">
+        <img src="images/merah.jpeg" alt="Kaos Putih" class="product-image" />
+        <h3 class="product-name">BAJU MERAH</h3>
+        <div class="product-rating" title="Rating 5/5">
+          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+        </div>
+        <p class="product-price">
+          Rp50.000
+        </p>
+        <div class="size-buttons" role="group" aria-label="Pilih ukuran kaos putih">
+          <button class="size-btn" type="button">M</button>
+          <button class="size-btn" type="button">L</button>
+          <button class="size-btn" type="button">XL</button>
+        </div>
+        <button class="add-to-cart-btn btn btn-success mt-auto" type="button" aria-label="Tambah Putih ke keranjang">Tambah Keranjang</button>
+      </div>
+
+
+      <!-- Tambahkan produk lain sesuai format di atas -->
+    </section>
+
+    <!-- Transaksi Section -->
+    <section id="transaksi" style="padding: 1rem; max-width: 1200px; margin: auto; text-align: center;">
+      <h2>TRANSAKSI</h2>
+      <p>Metode pembayaran kami</p>
+      <!-- Bisa ditambahkan carousel gambar pembayaran di sini -->
+       <div class="payment-carousel">
+  <div class="carousel-track">
+    <img src="images/dana.jpeg" alt="Dana" />
+    <img src="images/gopay.jpeg" alt="Gopay" />
+    <img src="images/bni.jpeg" alt="BNI" />
+    <img src="images/bri.jpeg" alt="BRI" />
+    <!-- Duplikat agar loop terlihat halus -->
+    <img src="images/dana.jpeg" alt="Dana" />
+    <img src="images/gopay.jpeg" alt="Gopay" />
+     <img src="images/bni.jpeg" alt="BNI" />
+    <img src="images/bri.jpeg" alt="BRI" />
+    <!-- Duplikat agar loop terlihat halus -->
+    <img src="images/dana.jpeg" alt="Dana" />
+    <img src="images/gopay.jpeg" alt="Gopay" />
+     <img src="images/bni.jpeg" alt="BNI" />
+    <img src="images/bri.jpeg" alt="BRI" />
   </div>
-</nav>
-
-
-<!-- Modal Login dan Register -->
-
-
-<!-- MODAL LOGIN/REGISTER -->
-<div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm z-50">
-  <div class="bg-black bg-opacity-10 backdrop-blur-lg border border-black/10 ring-1 ring-white/90 rounded-3xl p-8 w-10px max-w-md shadow-4xl text-white font-sans">
-    
-<h2 id="form-title" class="text-3xl font-semibold mb-6 text-center text-red-600">DZULFIKAR</h2>
-
-    <p class="subtitle text-center mb-6">
-      <span id="typed"></span><span id="cursor">|</span>
-    </p>
-
-    <!-- FORM LOGIN -->
-    <form id="loginForm" class="active space-y-4" autocomplete="off" novalidate>
-      <div class="relative">
-        <i class="ri-user-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
-        <input type="text" name="username" placeholder="Username" class="pl-10 pr-4 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
-      </div>
-      <div class="relative">
-        <i class="ri-lock-password-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
-        <input type="password" id="loginPassword" name="password" placeholder="Password" class="pl-10 pr-10 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
-        <i class="ri-eye-line absolute right-4 top-1/2 -translate-y-1/2 text-white/60 cursor-pointer" onclick="togglePassword('loginPassword')"></i>
-      </div>
-      <button type="submit" class="w-full py-3 bg-blue-500 rounded-xl hover:bg-blue-600 transition">MASUK</button>
-
-
-    </form>
-
-    <!-- FORM REGISTER -->
-    <form id="registerForm" class="active" autocomplete="off" novalidate>
-      <div class="relative">
-        <i class="ri-user-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
-        <input type="text" name="username" placeholder="Username" class="pl-10 pr-4 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
-      </div>
-      <div class="relative">
-        <i class="ri-mail-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
-        <input type="email" name="email" placeholder="Email" class="pl-10 pr-4 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
-      </div>
-      <div class="relative">
-        <i class="ri-lock-password-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
-        <input type="password" id="regPassword" name="password" placeholder="Password" class="pl-10 pr-10 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
-        <i class="ri-eye-line absolute right-4 top-1/2 -translate-y-1/2 text-white/60 cursor-pointer" onclick="togglePassword('regPassword')"></i>
-      </div>
-      <div class="relative">
-        <i class="ri-lock-password-line absolute left-4 top-1/2 -translate-y-1/2 text-white/60"></i>
-        <input type="password" id="regConfirm" name="confirmPassword" placeholder="Confirm Password" class="pl-10 pr-10 py-3 w-full bg-black bg-opacity-20 border border-white/30 rounded-xl text-white placeholder-white/60" required />
-        <i class="ri-eye-line absolute right-4 top-1/2 -translate-y-1/2 text-white/60 cursor-pointer" onclick="togglePassword('regConfirm')"></i>
-      </div>
-      <button type="submit" class="w-full py-3 bg-green-500 rounded-xl hover:bg-green-600 transition">DAFTAR</button>
-  
-    </form>
-
-<div class="social-icons">
-  <a href="https://www.facebook.com/rayhanganteng.rayhanganteng.90?_rdc=1&_rdr" class="facebook" target="_blank" aria-label="Facebook">
-    <i class="ri-facebook-line"></i>
-  </a>
-  <a href="https://instagram.com/rhanray_" class="instagram" target="_blank" aria-label="Instagram">
-    <i class="ri-instagram-line"></i>
-  </a>
-  <a href="https://wa.me/6282197770219" class="whatsapp" target="_blank" aria-label="WhatsApp">
-    <i class="ri-whatsapp-line"></i>
-  </a>
 </div>
+    </section>
 
-<div class="mt-4">
-  <button
-    id="closeModalBtn"
-    class="w-full px-6 py-3 rounded-xl bg-red-800 hover:bg-red-700 transition font-semibold text-white flex items-center justify-center gap-2"
-  >
-    <i class="ri-close-line"></i> Tutup
-  </button>
-</div>
+    <!-- About Us Section -->
+    <section id="about" style="padding: 1rem; max-width: 1200px; margin: auto; text-align: center;">
+      <h2>TENTANG KAMI</h2>
+      <p>DZULFIKAR adalah toko online Aman dan Terpercaya</p>
 
-  </div>
-</div>
+      
+    </section>
+  </main>
 
-<!-- Container Produk -->
+  <footer style="text-align:center; padding: 1rem; background:#000; color:white; margin-top: 2rem;">
+    &copy; 2025 DZULFIKAR, Inc.
+  </footer>
 
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<div class="p-4">
-  <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-</div>
+  <script>
+    (() => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const cartToggle = document.getElementById("cart-toggle");
+      const sidebarMenu = document.getElementById("sidebar-menu");
+      const sidebarCart = document.getElementById("sidebar-cart");
+      const overlay = document.getElementById("overlay");
+      const cartItemsContainer = document.getElementById("cart-items");
+      const cartTotalEl = document.getElementById("cart-total");
+      const checkoutBtn = document.getElementById("checkout-btn");
 
-<script src="script.js"></script>
+      // Utility: close all sidebars & overlay
+      function closeAll() {
+        sidebarMenu.classList.remove("open");
+        sidebarCart.classList.remove("open");
+        overlay.classList.remove("active");
+      }
 
+      // Toggle sidebar menu
+      menuToggle.addEventListener("click", () => {
+        const isOpen = sidebarMenu.classList.contains("open");
+        if (isOpen) {
+          closeAll();
+        } else {
+          sidebarMenu.classList.add("open");
+          sidebarCart.classList.remove("open");
+          overlay.classList.add("active");
+        }
+      });
+
+      // Toggle sidebar cart
+      cartToggle.addEventListener("click", () => {
+        const isOpen = sidebarCart.classList.contains("open");
+        if (isOpen) {
+          closeAll();
+        } else {
+          sidebarCart.classList.add("open");
+          sidebarMenu.classList.remove("open");
+          overlay.classList.add("active");
+        }
+      });
+
+      // Close sidebar on overlay click
+      overlay.addEventListener("click", () => {
+        closeAll();
+      });
+
+      // Size button toggle (highlight selected size)
+      document.querySelectorAll(".product-card").forEach(card => {
+        const sizeButtons = card.querySelectorAll(".size-btn");
+        sizeButtons.forEach(btn => {
+          btn.addEventListener("click", () => {
+            sizeButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+          });
+          // Select default size M
+          if (btn.textContent === "M") btn.classList.add("active");
+        });
+      });
+
+      // Cart data storage
+      let cart = [];
+
+      // Update cart count badge
+      function updateCartCount() {
+        const count = cart.reduce((sum, item) => sum + item.qty, 0);
+        document.getElementById("cart-count").textContent = count;
+      }
+
+      // Update total price & count
+      function updateCartUI() {
+        cartItemsContainer.innerHTML = "";
+        let totalPrice = 0;
+        cart.forEach(({ id, name, size, price, image, qty }) => {
+          totalPrice += price * qty;
+          const itemEl = document.createElement("div");
+          itemEl.className = "cart-item";
+          itemEl.innerHTML = `
+            <img src="${image}" alt="${name}" />
+            <div class="cart-item-info">
+              <div>${name}</div>
+              <div class="cart-item-size">Size: ${size}</div>
+              <div class="cart-item-price">Rp${(price * qty).toLocaleString("id-ID")}</div>
+            </div>
+            <div class="cart-item-qty" style="font-weight:600; margin-right:10px;">x${qty}</div>
+            <div class="cart-item-remove" title="Hapus item">&times;</div>
+          `;
+          // Remove item listener
+          itemEl.querySelector(".cart-item-remove").addEventListener("click", () => {
+            removeFromCart(id, size);
+          });
+          cartItemsContainer.appendChild(itemEl);
+        });
+        cartTotalEl.textContent = "Rp" + totalPrice.toLocaleString("id-ID");
+        updateCartCount();
+      }
+
+      // Add product to cart
+      function addToCart(product) {
+        // Cek jika item dengan id dan size sama sudah ada, maka qty tambah
+        const foundIndex = cart.findIndex(i => i.id === product.id && i.size === product.size);
+        if (foundIndex > -1) {
+          cart[foundIndex].qty++;
+        } else {
+          cart.push({ ...product, qty: 1 });
+        }
+        updateCartUI();
+      }
+
+      // Remove item from cart (by id & size)
+      function removeFromCart(id, size) {
+        cart = cart.filter(i => !(i.id === id && i.size === size));
+        updateCartUI();
+      }
+
+      // Add to cart button click handler
+      document.querySelectorAll(".product-card").forEach(card => {
+        const btnAdd = card.querySelector(".add-to-cart-btn");
+        btnAdd.addEventListener("click", () => {
+          const id = card.dataset.id;
+          const name = card.dataset.name;
+          const price = parseInt(card.dataset.price);
+          const image = card.dataset.image;
+          const sizeBtn = card.querySelector(".size-btn.active");
+          if (!sizeBtn) {
+            alert("Pilih ukuran terlebih dahulu!");
+            return;
+          }
+          const size = sizeBtn.textContent.trim();
+          addToCart({ id, name, size, price, image });
+          // Buka sidebar cart otomatis
+          //sidebarCart.classList.add("open");
+          //sidebarMenu.classList.remove("open");
+          //overlay.classList.add("active");
+        });
+      });
+
+      // Checkout button
+      checkoutBtn.addEventListener("click", () => {
+        if (cart.length === 0) {
+          alert("Keranjang kosong!");
+          return;
+        }
+        alert("Terima kasih sudah berbelanja! Total bayar: " + cartTotalEl.textContent);
+        cart = [];
+        updateCartUI();
+        closeAll();
+      });
+
+      // Initialize empty cart UI
+      updateCartUI();
+    })();
+  </script>
 </body>
 </html>
