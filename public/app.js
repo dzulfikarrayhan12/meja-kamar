@@ -149,3 +149,22 @@
       // Initialize empty cart UI
       updateCartUI();
     })();
+
+      const loginBtn = document.getElementById("loginBtn");
+  const modal = document.getElementById("loginModal");
+  const closeBtn = document.querySelector(".close");
+
+  loginBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.style.display = "block";
+  });
+
+  closeBtn.addEventListener("click", function () {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", function (e) {
+    if (e.target == modal) {
+      modal.style.display = "none";
+    }
+  });
