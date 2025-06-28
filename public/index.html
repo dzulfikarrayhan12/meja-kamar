@@ -390,6 +390,59 @@
     transform: translateX(-50%);
   }
 }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+}
+
+.modal-content {
+  background-color: #1e1e2f;
+  color: #fff;
+  margin: 5rem auto 2rem; /* Lebih ke bawah */
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 10px;
+  background-color: #b20710;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-content .close {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
 
 
 
@@ -411,6 +464,7 @@
   DZULFIKAR
 </div>
 
+
     <button id="cart-toggle" aria-label="Toggle cart" class="position-relative">
       <i class="ri-shopping-cart-line"></i>
       <span id="cart-count">0</span>
@@ -424,8 +478,22 @@
       <a href="https://wa.me/6282197770219" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <a href="#transaksi">Transaksi</a>
       <a href="#about">Tentang Kami</a>
+    <a href="#" id="loginBtn">Login</a>
+
     </nav>
   </aside>
+  <div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Login</h2>
+    <form>
+      <input type="text" placeholder="Username" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Masuk</button>
+    </form>
+  </div>
+</div>
+
 
   <!-- Sidebar Cart -->
   <aside class="sidebar-cart" id="sidebar-cart">
