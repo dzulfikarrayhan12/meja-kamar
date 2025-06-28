@@ -81,7 +81,7 @@
               <div class="cart-item-size">Size: ${size}</div>
               <div class="cart-item-price">Rp${(price * qty).toLocaleString("id-ID")}</div>
             </div>
-            <div class="cart-item-qty" style="font-weight:600; margin-right:10px;">x${qty}</div>
+            <div class="cart-item-qty" style="font-weight:600; margin-right:10px;">${qty}</div>
             <div class="cart-item-remove" title="Hapus item">&times;</div>
           `;
           // Remove item listener
