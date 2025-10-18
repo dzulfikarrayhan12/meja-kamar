@@ -1,472 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KIRA Store - Final </title>
-
-  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Remix Icon -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
-
-
-  <style>
-    /* ===== Reset & Base ===== */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0;
-      background: #f9f9f9;
-      overflow-x: hidden;
-    }
-
-    .banner-section {
-    background-image: url('images/banner.jpeg'); /* ganti dengan path gambarmu */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-  }
-
-  /* overlay hitam transparan agar teks mudah dibaca */
-  .banner-section::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 0;
-  }
-
-  /* supaya teks di atas overlay */
-  .banner-section > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  #navbarlogo {
-  font-family: 'Cinzel Decorative', cursive;
-  font-weight: 700;
-  font-size: 2rem;
-  color: white;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-}
-
-.banner-section h1,
-.banner-section h5,
-.banner-section p {
-  font-family: 'Cinzel', serif;
-}
-
-    /* Navbar */
- nav.navbar {
-  background-color: rgba(40, 40, 40, 0.6); /* hitam pudar transparan */
-  color: white;
-  padding: 0.5rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1002;
-
-  backdrop-filter: blur(10px); /* efek kaca buram */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* garis bawah halus */
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5); /* bayangan lembut */
-}
-
-
-    nav.navbar button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      position: relative;
-    }
-    nav.navbar #cart-toggle {
-      position: relative;
-    }
-    #cart-count {
-      position: absolute;
-      top: -6px;
-      right: -8px;
-      background: #000;
-      color: white;
-      font-size: 0.75rem;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      user-select: none;
-    }
-
-    /* Sidebar common */
-    .sidebar, .sidebar-cart {
-      position: fixed;
-      top: 0;
-      height: 100vh;
-      background: white;
-      box-shadow: 0 0 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
-      z-index: 1100;
-      overflow-y: auto;
-      padding: 1rem;
-    }
-    .sidebar {
-      left: 0;
-      width: 250px;
-      transform: translateX(-100%);
-    }
-    .sidebar.open {
-      transform: translateX(0);
-    }
-    .sidebar-nav a {
-      display: block;
-      padding: 0.7rem 0;
-      color: #222;
-      text-decoration: none;
-      font-weight: 600;
-      border-bottom: 1px solid #eee;
-      user-select: none;
-    }
-    .sidebar-nav a:hover {
-      background: #f0f0f0;
-    }
-
- /* Overlay with blur */
-
- .sidebar-cart {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 320px;
-  height: 100%;
-  transform: translateX(100%);
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.1); /* transparansi */
-  backdrop-filter: blur(15px);          /* efek blur */
-  -webkit-backdrop-filter: blur(15px);  /* untuk dukungan Safari */
-  border-left: 1px solid rgba(255, 255, 255, 0.2); /* garis tepi transparan */
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2); /* bayangan */
-  transition: transform 0.3s ease-in-out;
- 
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-}
-
-.sidebar-cart.open {
-  transform: translateX(0);
-}
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(4px);
-      z-index: 1050;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    /* Product grid */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-      gap: 1rem;
-      padding: 1rem;
-      max-width: 1200px;
-      margin: 1rem auto;
-    }
-    .product-card {
-      background: white;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-    }
-    .product-image {
-      width: 100%;
-      border-radius: 4px;
-      object-fit: contain;
-      aspect-ratio: 4 / 3;
-      margin-bottom: 0.8rem;
-    }
-    .product-name {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
-      color: #222;
-      text-align: center;
-    }
-  .product-rating {
-  color: #ffb400; /* warna kuning */
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  text-shadow:
-    0 0 5px #ffb400,
-    0 0 10px #ffb400;
-
-}
-
-    .product-price {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #000;
-      text-align: center;
-      margin-bottom: 0.6rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-    }
-    .product-price img {
-      width: 20px;
-      vertical-align: middle;
-    }
-    .size-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 19px;
-      margin-bottom: 0.7rem;
-    }
-    .size-btn {
-      padding: 0.3rem 0.6rem;
-      border: 2.9px solid #222;
-      border-radius: 2px;
-      background: transparent;
-      font-weight: 600;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.2s ease;
-    }
-    .size-btn:hover, .size-btn.active {
-      background-color: #222;
-      color: white;
-    }
-    .add-to-cart-btn {
-      background-color: #000;
-      color: white;
-      border: none;
-      padding: 0.5rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    .add-to-cart-btn:hover {
-      background-color: #21867a;
-    }
-
-    /* Cart sidebar content */
-    .cart-summary {
-      font-weight: 700;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      color: #000;
-    }
-   .cart-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
- .cart-item img {
-      width: 60px;
-      height: 45px;
-      object-fit: contain;
-      border-radius: 4px;
-      flex-shrink: 0;
-    }
-    
-.cart-item-details {
-  flex-grow: 1;
-}
-
-.cart-item-name {
-  font-size: 14px;
-  font-weight: bold;
-  color: #000;
-}
-
-.cart-item-price {
-  font-size: 13px;
-  color: #000;
-}
-
-    .cart-item-info {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color:#f9f9f9;
-    }
-    .cart-item-size {
-      font-weight: 400;
-      font-size: 0.8rem;
-      color: #f9f9f9;
-    }
- 
-    .cart-item-remove {
-      cursor: pointer;
-      color: #dc3545;
-      font-size: 1.25rem;
-      user-select: none;
-      transition: color 0.2s ease;
-    }
-    .cart-item-remove:hover {
-      color: #a8232d;
-    }
-    .cart-total {
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      color: #f9f9f9;
-    }
-    .checkout-btn {
-      width: 100%;
-      padding: 0.6rem 0;
-      background-color: #000;
-      border: none;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-    .checkout-btn:hover {
-      background-color: #196658;
-    }
-
-  .payment-carousel {
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
-}
-
-.carousel-track {
-  display: flex;
-  width: max-content;
-  animation: scrollLoop 45s linear infinite;
-}
-
-.carousel-track img {
-  height: 50px;
-  margin: 0 1rem;
-  object-fit: contain;
-  transition: transform 0.3s;
-}
-
-.carousel-track img:hover {
-  transform: scale(1.1);
-}
-
-@keyframes scrollLoop {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
-}
-
-.modal-content {
-  background-color: #1e1e2f;
-  color: #fff;
-  margin: 5rem auto 2rem; /* Lebih ke bawah */
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.modal-content input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 8px;
-  background: #333;
-  color: white;
-}
-
-.modal-content button {
-  width: 100%;
-  padding: 10px;
-  background-color: #b20710;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.modal-content .close {
-  float: right;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-
-
-
-
-  </style>
+  <link rel="stylesheet" href="ray.css" />
 </head>
-<body>
 
-  <!-- Navbar -->
+<body>
   <nav class="navbar">
     <button id="menu-toggle" aria-label="Toggle menu"><i class="ri-menu-line"></i></button>
-  <div id="navbarlogo"
-     style="
-       background: linear-gradient(to bottom, #fff, #000);
+    <div id="navbarlogo" style="
+     background: linear-gradient(to bottom, #6aff00, #2b272722);
+
        -webkit-background-clip: text;
        color: transparent;
-       font-weight: 700;
+       font-weight: 900;
        font-size: 1.25rem;
      ">
-  DZULFIKAR
-</div>
+      DZULFIKAR
+    </div>
 
 
     <button id="cart-toggle" aria-label="Toggle cart" class="position-relative">
-      <i class="ri-shopping-cart-line"></i>
+      <i class="ri-shopping-bag-3-line"></i></i>
       <span id="cart-count">0</span>
     </button>
   </nav>
@@ -474,35 +38,28 @@
   <!-- Sidebar Menu -->
   <aside class="sidebar" id="sidebar-menu">
     <nav class="sidebar-nav">
-      <a href="https://instagram.com/rhanray_" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://wa.me/6282197770219" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      <a href="#transaksi">Transaksi</a>
-      <a href="#about">Tentang Kami</a>
-    <a href="#" id="loginBtn">Login</a>
-
+      <a href="kontak.html">Kontak</a>
     </nav>
   </aside>
-  <div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Login</h2>
-    <form>
-      <input type="text" placeholder="Username" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Masuk</button>
-    </form>
-  </div>
-</div>
 
 
   <!-- Sidebar Cart -->
   <aside class="sidebar-cart" id="sidebar-cart">
     <div class="cart-summary">Keranjang Kamu</div>
+
     <div class="cart-items" id="cart-items"></div>
-    <div class="cart-total" id="cart-total">Rp0</div>
- <button class="checkout-btn" id="checkout-btn">
-  <i class="ri-shopping-bag-line" style="margin-right: 6px;"></i> Checkout
-</button>
+
+    <!-- Keterangan total -->
+    <!-- Total belanja -->
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total Belanja:</span>
+      <span class="cart-total" id="cart-total">Rp0</span>
+    </div>
+
+    <!-- Tombol checkout -->
+    <button class="checkout-btn" id="checkout-btn">
+      <i class="ri-shopping-bag-line" style="margin-right: 6px;"></i> Checkout
+    </button>
 
   </aside>
 
@@ -512,63 +69,75 @@
   <!-- Main Content -->
   <main>
     <!-- Welcome Section -->
-   <section class="banner-section" style="text-align:center; padding: 6rem 2rem; color: white;">
-  <h5>Selamat Datang di</h5>
-  <h1 style="font-weight: 800; font-size: 3rem; margin: 0.5rem 0;">DZULFIKAR</h1>
-  <p>Silahkan Belanja</p>
-</section>
+    <section class="banner-section" style="text-align:center; padding: 6rem 2rem; color: white;">
+      <h5>Selamat Datang di</h5>
+      <h1 style="font-weight: 800; font-size: 3rem; margin: 0.5rem 0;">DZULFIKAR</h1>
+      <p>Silahkan Belanja</p>
+    </section>
     <!-- Products -->
     <section class="product-grid" id="product">
       <!-- Example product card, duplicate/change as needed -->
-      <div class="product-card" data-id="hitam" data-name="Hitam" data-price="50000" data-image="images/hitam.jpeg">
-        <img src="images/hitam.jpeg" alt="Kaos Hitam" class="product-image" />
-        <h3 class="product-name">BAJU HITAM</h3>
+      <div class="product-card" data-id="hitam" data-name="HOODIE Hitam" data-price="100000" data-image="images/4.jpg">
+        <img src="images/4.jpg" alt="Kaos Hitam" class="product-image" />
+        <h3 class="product-name">HOODIE HITAM</h3>
         <div class="product-rating" title="Rating 5/5">
-          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+            class="ri-star-fill"></i><i class="ri-star-fill"></i>
         </div>
         <p class="product-price">
-          Rp50.000
+          Rp100.000
         </p>
         <div class="size-buttons" role="group" aria-label="Pilih ukuran kaos hitam">
           <button class="size-btn" type="button">M</button>
           <button class="size-btn" type="button">L</button>
           <button class="size-btn" type="button">XL</button>
         </div>
-        <button class="add-to-cart-btn btn btn-success mt-auto" type="button" aria-label="Tambah Hitam ke keranjang">Tambah Keranjang</button>
+        <button class="add-to-cart-btn btn btn-success mt-auto" type="button"
+          aria-label="Tambah Hitam ke keranjang">Tambah Keranjang</button>
       </div>
 
-      <div class="product-card" data-id="putih" data-name="Putih" data-price="50000" data-image="images/putih.jpeg">
-        <img src="images/putih.jpeg" alt="Kaos Putih" class="product-image" />
-        <h3 class="product-name">BAJU PUTIH</h3>
+      <div class="product-card" data-id="putih" data-name="HOODIE MERAH" data-price="100000" data-image="images/5.jpg">
+        <img src="images/5.jpg" alt="Kaos Putih" class="product-image" />
+        <h3 class="product-name">HOODIE MERAH</h3>
         <div class="product-rating" title="Rating 5/5">
-          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i>
+
+
+
         </div>
         <p class="product-price">
-          Rp50.000
+          Rp100.000
         </p>
         <div class="size-buttons" role="group" aria-label="Pilih ukuran kaos putih">
           <button class="size-btn" type="button">M</button>
           <button class="size-btn" type="button">L</button>
           <button class="size-btn" type="button">XL</button>
         </div>
-        <button class="add-to-cart-btn btn btn-success mt-auto" type="button" aria-label="Tambah Putih ke keranjang">Tambah Keranjang</button>
+        <button class="add-to-cart-btn btn btn-success mt-auto" type="button"
+          aria-label="Tambah Putih ke keranjang">Tambah Keranjang</button>
       </div>
 
-       <div class="product-card" data-id="merah" data-name="Merah" data-price="50000" data-image="images/merah.jpeg">
-        <img src="images/merah.jpeg" alt="Kaos Putih" class="product-image" />
-        <h3 class="product-name">BAJU MERAH</h3>
+      <div class="product-card" data-id="merah" data-name="HOODIE PUTIH" data-price="100000" data-image="images/6.jpg">
+        <img src="images/6.jpg" alt="Kaos Putih" class="product-image" />
+        <h3 class="product-name">HOODIE PUTIH</h3>
         <div class="product-rating" title="Rating 5/5">
-          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+            class="ri-star-fill"></i><i class="ri-star-fill"></i>
         </div>
         <p class="product-price">
-          Rp50.000
+          Rp100.000
         </p>
         <div class="size-buttons" role="group" aria-label="Pilih ukuran kaos putih">
           <button class="size-btn" type="button">M</button>
           <button class="size-btn" type="button">L</button>
           <button class="size-btn" type="button">XL</button>
         </div>
-        <button class="add-to-cart-btn btn btn-success mt-auto" type="button" aria-label="Tambah Putih ke keranjang">Tambah Keranjang</button>
+        <button class="add-to-cart-btn btn btn-success mt-auto" type="button"
+          aria-label="Tambah Putih ke keranjang">Tambah Keranjang</button>
       </div>
 
 
@@ -580,34 +149,34 @@
       <h2>TRANSAKSI</h2>
       <p>Metode pembayaran </p>
       <!-- Bisa ditambahkan carousel gambar pembayaran di sini -->
-       <div class="payment-carousel">
-  <div class="carousel-track">
-    <img src="images/dana.jpeg" alt="Dana" />
-    <img src="images/gopay.jpeg" alt="Gopay" />
-    <img src="images/bni.jpeg" alt="BNI" />
-    <img src="images/bri.jpeg" alt="BRI" />
-    <!-- Duplikat agar loop terlihat halus -->
-    <img src="images/dana.jpeg" alt="Dana" />
-    <img src="images/gopay.jpeg" alt="Gopay" />
-     <img src="images/bni.jpeg" alt="BNI" />
-    <img src="images/bri.jpeg" alt="BRI" />
-    <!-- Duplikat agar loop terlihat halus -->
-    <img src="images/dana.jpeg" alt="Dana" />
-    <img src="images/gopay.jpeg" alt="Gopay" />
-     <img src="images/bni.jpeg" alt="BNI" />
-    <img src="images/bri.jpeg" alt="BRI" />
-  </div>
-</div>
+      <div class="payment-carousel">
+        <div class="carousel-track">
+          <img src="images/dana.jpeg" alt="Dana" />
+          <img src="images/gopay.jpeg" alt="Gopay" />
+          <img src="images/bni.jpeg" alt="BNI" />
+          <img src="images/bri.jpeg" alt="BRI" />
+          <!-- Duplikat agar loop terlihat halus -->
+          <img src="images/dana.jpeg" alt="Dana" />
+          <img src="images/gopay.jpeg" alt="Gopay" />
+          <img src="images/bni.jpeg" alt="BNI" />
+          <img src="images/bri.jpeg" alt="BRI" />
+          <!-- Duplikat agar loop terlihat halus -->
+          <img src="images/dana.jpeg" alt="Dana" />
+          <img src="images/gopay.jpeg" alt="Gopay" />
+          <img src="images/bni.jpeg" alt="BNI" />
+          <img src="images/bri.jpeg" alt="BRI" />
+        </div>
+      </div>
     </section>
 
     <!-- About Us Section -->
     <section id="about" style="padding: 1rem; max-width: 1200px; margin: auto; text-align: center;">
       <h2>TENTANG KAMI</h2>
       <p>toko online Terpercaya dan Aman
-        
+
       </p>
 
-      
+
     </section>
   </main>
 
@@ -618,6 +187,8 @@
   <!-- Bootstrap JS Bundle (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
- <script src="app.js"></script>
+  <script src="app.js"></script> <!-- Pastikan path-nya sesuai -->
+
 </body>
+
 </html>
