@@ -1,170 +1,294 @@
- (() => {
-      const menuToggle = document.getElementById("menu-toggle");
-      const cartToggle = document.getElementById("cart-toggle");
-      const sidebarMenu = document.getElementById("sidebar-menu");
-      const sidebarCart = document.getElementById("sidebar-cart");
-      const overlay = document.getElementById("overlay");
-      const cartItemsContainer = document.getElementById("cart-items");
-      const cartTotalEl = document.getElementById("cart-total");
-      const checkoutBtn = document.getElementById("checkout-btn");
+const qs = id => document.getElementById(id);
 
-      // Utility: close all sidebars & overlay
-      function closeAll() {
-        sidebarMenu.classList.remove("open");
-        sidebarCart.classList.remove("open");
-        overlay.classList.remove("active");
-      }
+// Data produk
+const products = [
+  {
+    id: "hitam",
+    name: "Hitam",
+    displayName: "BAJU HITAM",
+    price: 50000,
+    image: "images/1.jpg",
+    rating: 5
+  },
+  {
+    id: "putih",
+    name: "Putih",
+    displayName: "BAJU PUTIH",
+    price: 50000,
+    image: "images/2.jpg",
+    rating: 3
+  },
+  {
+    id: "merah",
+    name: "Merah",
+    displayName: "BAJU MERAH",
+    price: 50000,
+    image: "images/3.jpg",
+    rating: 3
+  }
+];
 
-      // Toggle sidebar menu
-      menuToggle.addEventListener("click", () => {
-        const isOpen = sidebarMenu.classList.contains("open");
-        if (isOpen) {
-          closeAll();
-        } else {
-          sidebarMenu.classList.add("open");
-          sidebarCart.classList.remove("open");
-          overlay.classList.add("active");
-        }
-      });
+// Buat rating bintang
+function createStarRating(rating) {
+  const ratingDiv = document.createElement('div');
+  ratingDiv.className = 'product-rating flex gap-1 text-yellow-400';
+  ratingDiv.title = `Rating ${rating}/5`;
 
-      // Toggle sidebar cart
-      cartToggle.addEventListener("click", () => {
-        const isOpen = sidebarCart.classList.contains("open");
-        if (isOpen) {
-          closeAll();
-        } else {
-          sidebarCart.classList.add("open");
-          sidebarMenu.classList.remove("open");
-          overlay.classList.add("active");
-        }
-      });
+  for (let i = 0; i < 5; i++) {
+    const star = document.createElement('i');
+    star.className = i < rating ? 'ri-star-fill' : 'ri-star-line';
+    ratingDiv.appendChild(star);
+  }
 
-      // Close sidebar on overlay click
-      overlay.addEventListener("click", () => {
-        closeAll();
-      });
+  return ratingDiv;
+}
 
-      // Size button toggle (highlight selected size)
-      document.querySelectorAll(".product-card").forEach(card => {
-        const sizeButtons = card.querySelectorAll(".size-btn");
-        sizeButtons.forEach(btn => {
-          btn.addEventListener("click", () => {
-            sizeButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-          });
-          // Select default size M
-          if (btn.textContent === "M") btn.classList.add("active");
-        });
-      });
+function renderProducts() {
+  const container = document.getElementById('productContainer');
+  products.forEach(product => {
+    const div = document.createElement('div');
+    div.className = 'product p-4 border rounded shadow-md';
 
-      // Cart data storage
-      let cart = [];
+    div.innerHTML = `
+      <img src="${product.image}" class="w-full h-48 object-cover rounded" />
+      <h3 class="text-lg font-bold mt-2">${product.displayName}</h3>
+      <p class="text-gray-600">Rp ${product.price.toLocaleString()}</p>
+    `;
 
-      // Update cart count badge
-      function updateCartCount() {
-        const count = cart.reduce((sum, item) => sum + item.qty, 0);
-        document.getElementById("cart-count").textContent = count;
-      }
+    // Tambahkan rating
+    div.appendChild(createStarRating(product.rating));
 
-      // Update total price & count
-      function updateCartUI() {
-        cartItemsContainer.innerHTML = "";
-        let totalPrice = 0;
-        cart.forEach(({ id, name, size, price, image, qty }) => {
-          totalPrice += price * qty;
-          const itemEl = document.createElement("div");
-          itemEl.className = "cart-item";
-          itemEl.innerHTML = `
-            <img src="${image}" alt="${name}" />
-            <div class="cart-item-info">
-              <div>${name}</div>
-              <div class="cart-item-size">Size: ${size}</div>
-              <div class="cart-item-price">Rp${(price * qty).toLocaleString("id-ID")}</div>
-            </div>
-            <div class="cart-item-qty" style="font-weight:600; margin-right:10px;">${qty}</div>
-            <div class="cart-item-remove" title="Hapus item">&times;</div>
-          `;
-          // Remove item listener
-          itemEl.querySelector(".cart-item-remove").addEventListener("click", () => {
-            removeFromCart(id, size);
-          });
-          cartItemsContainer.appendChild(itemEl);
-        });
-        cartTotalEl.textContent = "Rp" + totalPrice.toLocaleString("id-ID");
-        updateCartCount();
-      }
+    container.appendChild(div);
+  });
+}
 
-      // Add product to cart
-      function addToCart(product) {
-        // Cek jika item dengan id dan size sama sudah ada, maka qty tambah
-        const foundIndex = cart.findIndex(i => i.id === product.id && i.size === product.size);
-        if (foundIndex > -1) {
-          cart[foundIndex].qty++;
-        } else {
-          cart.push({ ...product, qty: 1 });
-        }
-        updateCartUI();
-      }
 
-      // Remove item from cart (by id & size)
-      function removeFromCart(id, size) {
-        cart = cart.filter(i => !(i.id === id && i.size === size));
-        updateCartUI();
-      }
+// Buat tombol ukuran
+function createSizeButtons(ariaLabel) {
+  const sizes = ['M', 'L', 'XL'];
+  const sizeDiv = document.createElement('div');
+  sizeDiv.className = 'size-buttons';
+  sizeDiv.setAttribute('role', 'group');
+  sizeDiv.setAttribute('aria-label', ariaLabel);
 
-      // Add to cart button click handler
-      document.querySelectorAll(".product-card").forEach(card => {
-        const btnAdd = card.querySelector(".add-to-cart-btn");
-        btnAdd.addEventListener("click", () => {
-          const id = card.dataset.id;
-          const name = card.dataset.name;
-          const price = parseInt(card.dataset.price);
-          const image = card.dataset.image;
-          const sizeBtn = card.querySelector(".size-btn.active");
-          if (!sizeBtn) {
-            alert("Pilih ukuran terlebih dahulu!");
-            return;
-          }
-          const size = sizeBtn.textContent.trim();
-          addToCart({ id, name, size, price, image });
-          // Buka sidebar cart otomatis
-          //sidebarCart.classList.add("open");
-          //sidebarMenu.classList.remove("open");
-          //overlay.classList.add("active");
-        });
-      });
+  sizes.forEach(size => {
+    const btn = document.createElement('button');
+    btn.className = 'size-btn';
+    btn.type = 'button';
+    btn.textContent = size;
+    sizeDiv.appendChild(btn);
+  });
 
-      // Checkout button
-      checkoutBtn.addEventListener("click", () => {
-        if (cart.length === 0) {
-          alert("Keranjang kosong!");
-          return;
-        }
-        alert("Terima kasih sudah berbelanja! Total bayar: " + cartTotalEl.textContent);
-        cart = [];
-        updateCartUI();
-        closeAll();
-      });
+  return sizeDiv;
+}
 
-      // Initialize empty cart UI
-      updateCartUI();
-    })();
+// Render produk ke halaman
+function renderProducts(productList, containerId) {
+  const container = document.getElementById(containerId);
 
-      const loginBtn = document.getElementById("loginBtn");
-  const modal = document.getElementById("loginModal");
+  productList.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.dataset.id = product.id;
+    card.dataset.name = product.name;
+    card.dataset.price = product.price;
+    card.dataset.image = product.image;
+
+    const img = document.createElement('img');
+    img.src = product.image;
+    img.alt = `Kaos ${product.name}`;
+    img.className = 'product-image';
+
+    const name = document.createElement('h3');
+    name.className = 'product-name';
+    name.textContent = product.displayName;
+
+    const price = document.createElement('p');
+    price.className = 'product-price';
+    price.textContent = `Rp${product.price.toLocaleString('id-ID')}`;
+
+    const sizeButtons = createSizeButtons(`Pilih ukuran kaos ${product.name.toLowerCase()}`);
+
+    const addToCartBtn = document.createElement('button');
+    addToCartBtn.className = 'add-to-cart-btn btn btn-success mt-auto';
+    addToCartBtn.type = 'button';
+    addToCartBtn.setAttribute('aria-label', `Tambah ${product.name} ke keranjang`);
+    addToCartBtn.textContent = 'Tambah Keranjang';
+
+    // ✅ Tambahkan rating yang benar
+    const ratingStars = createStarRating(product.rating);
+
+    // Gabungkan semuanya ke dalam card
+    card.appendChild(img);
+    card.appendChild(name);
+    card.appendChild(ratingStars); // ← perbaikan di sini
+    card.appendChild(price);
+    card.appendChild(sizeButtons);
+    card.appendChild(addToCartBtn);
+
+    container.appendChild(card);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // === DOM SELECTORS ===
+  const menuToggle = qs("menu-toggle");
+  const cartToggle = qs("cart-toggle");
+  const sidebarMenu = qs("sidebar-menu");
+  const sidebarCart = qs("sidebar-cart");
+  const overlay = qs("overlay");
+  const cartItemsContainer = qs("cart-items");
+  const cartTotalEl = qs("cart-total");
+  const checkoutBtn = qs("checkout-btn");
+  const loginBtn = qs("loginBtn");
+  const modal = qs("loginModal");
   const closeBtn = document.querySelector(".close");
 
-  loginBtn.addEventListener("click", function (e) {
+  // === SIDEBAR TOGGLE ===
+  function closeAll() {
+    sidebarMenu?.classList.remove("open");
+    sidebarCart?.classList.remove("open");
+    overlay?.classList.remove("active");
+  }
+
+  menuToggle?.addEventListener("click", () => {
+    sidebarMenu.classList.toggle("open");
+    sidebarCart?.classList.remove("open");
+    overlay.classList.toggle("active", sidebarMenu.classList.contains("open"));
+  });
+
+  cartToggle?.addEventListener("click", () => {
+    sidebarCart.classList.toggle("open");
+    sidebarMenu?.classList.remove("open");
+    overlay.classList.toggle("active", sidebarCart.classList.contains("open"));
+  });
+
+  overlay?.addEventListener("click", closeAll);
+
+  // === KERANJANG ===
+  let cart = JSON.parse(localStorage.getItem("checkout") || "[]");
+
+  function saveCart() {
+    localStorage.setItem("checkout", JSON.stringify(cart));
+  }
+
+  function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountEl = qs("cart-count");
+    if (cartCountEl) {
+      cartCountEl.textContent = count > 0 ? count : "";
+      cartCountEl.style.display = count > 0 ? "flex" : "none";
+    }
+  }
+
+  function updateCartUI() {
+    cartItemsContainer.innerHTML = "";
+    let totalPrice = 0;
+
+    cart.forEach(({ id, name, size, price, image, qty }) => {
+      totalPrice += price * qty;
+      const itemEl = document.createElement("div");
+      itemEl.className = "cart-item";
+      itemEl.innerHTML = `
+        <img src="${image}" alt="${name}" />
+        <div class="cart-item-info">
+          <div>${name}</div>
+          <div class="cart-item-size">Size: ${size}</div>
+          <div class="cart-item-price">Rp${(price * qty).toLocaleString("id-ID")}</div>
+        </div>
+        <div class="cart-item-qty">${qty}</div>
+     <div class="cart-item-remove text-red-500 text-xl cursor-pointer" title="Hapus item">
+  <i class="ri-delete-bin-line"></i>
+</div>
+
+      `;
+
+      itemEl.querySelector(".cart-item-remove").addEventListener("click", () => {
+        removeFromCart(id, size);
+      });
+
+      cartItemsContainer.appendChild(itemEl);
+    });
+
+    cartTotalEl.textContent = "Rp" + totalPrice.toLocaleString("id-ID");
+    updateCartCount();
+  }
+
+  function addToCart(product) {
+    const index = cart.findIndex(i => i.id === product.id && i.size === product.size);
+    if (index > -1) {
+      cart[index].qty += 1;
+    } else {
+      cart.push({ ...product, qty: 1 });
+    }
+    saveCart();
+    updateCartUI();
+  }
+
+  function removeFromCart(id, size) {
+    cart = cart.filter(item => !(item.id === id && item.size === size));
+    saveCart();
+    updateCartUI();
+  }
+
+  // === RENDER PRODUK ===
+  renderProducts(products, 'product');
+
+  // === AKTIFKAN UKURAN & ADD TO CART SETELAH RENDER ===
+  document.querySelectorAll(".product-card").forEach((card) => {
+    const sizeButtons = card.querySelectorAll(".size-btn");
+    sizeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        sizeButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+      if (btn.textContent.trim() === "M") {
+        btn.classList.add("active");
+      }
+    });
+
+    const btnAdd = card.querySelector(".add-to-cart-btn");
+    btnAdd?.addEventListener("click", () => {
+      const id = card.dataset.id;
+      const name = card.dataset.name;
+      const price = parseInt(card.dataset.price);
+      const image = card.dataset.image;
+      const sizeBtn = card.querySelector(".size-btn.active");
+
+      if (!sizeBtn) {
+        alert("Pilih ukuran terlebih dahulu!");
+        return;
+      }
+
+      const size = sizeBtn.textContent.trim();
+      addToCart({ id, name, size, price, image });
+    });
+  });
+
+  checkoutBtn?.addEventListener("click", () => {
+    if (cart.length === 0) {
+      alert("Keranjang kosong!");
+      return;
+    }
+    window.location.href = "checkout.html";
+  });
+
+  // === MODAL LOGIN ===
+  loginBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     modal.style.display = "block";
   });
 
-  closeBtn.addEventListener("click", function () {
+  closeBtn?.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
-  window.addEventListener("click", function (e) {
-    if (e.target == modal) {
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
       modal.style.display = "none";
     }
   });
+
+  // INIT
+  updateCartUI();
+});
