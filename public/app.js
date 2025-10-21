@@ -8,7 +8,7 @@ const products = [
     name: "Hitam",
     displayName: "BAJU HITAM",
     price: 50000,
-    image: "images/1.jpg",
+    image: "images/hitam.jpeg",
     rating: 5
   },
   {
@@ -16,7 +16,7 @@ const products = [
     name: "Putih",
     displayName: "BAJU PUTIH",
     price: 50000,
-    image: "images/2.jpg",
+    image: "images/putih.jpeg",
     rating: 3
   },
   {
@@ -24,7 +24,7 @@ const products = [
     name: "Merah",
     displayName: "BAJU MERAH",
     price: 50000,
-    image: "images/3.jpg",
+    image: "images/merah.jpeg",
     rating: 3
   }
 ];
