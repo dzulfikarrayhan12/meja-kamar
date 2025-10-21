@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KIRA Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <button id="menu-toggle">☰</button>
+    <div id="navbarlogo">Dzulfikar</div>
+    <button id="cart-toggle">
+      🛒
+      <span id="cart-count">0</span>
+    </button>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-nav">
+      <a href="#">FACEBOOK</a>
+      <a href="#">INSTAGRAM</a>
+      <a href="#">WHATSAPP</a>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Banner -->
+  <section class="banner-section" style="height: 250px; display:flex; justify-content:center; align-items:center; color:white; text-align:center;">
+    <div>
+      <h1>dzulfikar</h1>
+      <p>Kaos • Polos 24s</p>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <section class="product-grid">
+    <!-- Produk 1 -->
+    <div class="product-card">
+      <img src="images/hoodie1.jpg" alt="Hoodie 1" class="product-image">
+      <div class="product-name">BAJU HITAM</div>
+      <div class="product-rating">★★★★★</div>
+      <div class="product-price"><img src="images/rp.png" alt="">100.000</div>
+      <div class="size-buttons">
+        <button class="size-btn">M</button>
+        <button class="size-btn">L</button>
+        <button class="size-btn">XL</button>
+      </div>
+      <button class="add-to-cart-btn">Tambah Keranjang</button>
+    </div>
+
+    <!-- Produk 2 -->
+    <div class="product-card">
+      <img src="images/hoodie2.jpg" alt="Hoodie 2" class="product-image">
+      <div class="product-name">BAJU PUTIH</div>
+      <div class="product-rating">★★★★☆</div>
+      <div class="product-price"><img src="images/rp.png" alt="">100.000</div>
+      <div class="size-buttons">
+        <button class="size-btn">M</button>
+        <button class="size-btn">L</button>
+        <button class="size-btn">XL</button>
+      </div>
+      <button class="add-to-cart-btn">Tambah Keranjang</button>
+    </div>
+
+    <!-- Produk 3 -->
+    <div class="product-card">
+      <img src="images/hoodie3.jpg" alt="Hoodie 3" class="product-image">
+      <div class="product-name">BAJU MERAH</div>
+      <div class="product-rating">★★★★★</div>
+      <div class="product-price"><img src="images/rp.png" alt="">100.000</div>
+      <div class="size-buttons">
+        <button class="size-btn">M</button>
+        <button class="size-btn">L</button>
+        <button class="size-btn">XL</button>
+      </div>
+      <button class="add-to-cart-btn">Tambah Keranjang</button>
+    </div>
+  </section>
+
+  <!-- Sidebar Cart -->
+  <div class="sidebar-cart" id="cart">
+    <div class="cart-header">
+      <span>KERANJANG</span>
+      <button class="close-cart" id="close-cart">&times;</button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total:</span>
+      <span class="cart-total">Rp <span id="cart-total">0</span></span>
+    </div>
+
+    <button class="checkout-btn">Checkout</button>
+  </div>
+
+  <!-- Modal Login -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close-login">&times;</span>
+      <h2>Login</h2>
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+      <button>Login</button>
+      <p style="text-align:center; margin-top:10px;">Don't have an account? <a href="#" style="color:#ff4c4c;">Register</a></p>
+    </div>
+  </div>
+
+      <section id="transaksi" style="padding: 1rem; max-width: 1200px; margin: auto; text-align: center;">
+      <h2>TRANSAKSI</h2>
+      <p>Metode pembayaran </p>
+      <!-- Bisa ditambahkan carousel gambar pembayaran di sini -->
+      <div class="payment-carousel">
+        <div class="carousel-track">
+          <img src="images/dana.jpeg" alt="Dana" />
+          <img src="images/gopay.jpeg" alt="Gopay" />
+          <img src="images/bni.jpeg" alt="BNI" />
+          <img src="images/bri.jpeg" alt="BRI" />
+          <!-- Duplikat agar loop terlihat halus -->
+          <img src="images/dana.jpeg" alt="Dana" />
+          <img src="images/gopay.jpeg" alt="Gopay" />
+          <img src="images/bni.jpeg" alt="BNI" />
+          <img src="images/bri.jpeg" alt="BRI" />
+          <!-- Duplikat agar loop terlihat halus -->
+          <img src="images/dana.jpeg" alt="Dana" />
+          <img src="images/gopay.jpeg" alt="Gopay" />
+          <img src="images/bni.jpeg" alt="BNI" />
+          <img src="images/bri.jpeg" alt="BRI" />
+        </div>
+      </div>
+    </section>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
