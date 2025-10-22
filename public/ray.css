@@ -468,7 +468,7 @@ nav.navbar #cart-toggle {
   border: none;
   font-size: 22px;
   font-weight: bold;
-  color: #333;
+  color: #e74c3c;
   cursor: pointer;
   transition: 0.3s;
 }
